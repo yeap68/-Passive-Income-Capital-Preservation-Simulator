@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b10">
+<title>Passive Income Strategy Simulator</title>
+
+<style>
+:root{
+  --bg:#080b10;--panel:#111720;--card:#171e29;--border:#2b3544;
+  --text:#f4f7fb;--muted:#9aa6b5;--blue:#2f80ed;--blue2:#59a5ff;
+  --green:#34c98f;--orange:#f2a65a;--red:#ff6b6b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.45;
+}
+.wrap{max-width:980px;margin:auto;padding:22px 16px 70px}
+h1{font-size:30px;line-height:1.1;margin:4px 0 8px}
+h2{font-size:20px;margin:0 0 14px}
+h3{font-size:16px;margin:0 0 8px}
+.sub{color:var(--muted);margin-bottom:24px}
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:18px;padding:18px;margin-bottom:18px;
+}
+.thesis{
+  border-left:4px solid var(--blue);
+  background:linear-gradient(90deg,#122038,var(--panel));
+}
+.thesis strong{font-size:19px}
+.small{font-size:13px;color:var(--muted)}
+.options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.strategy{
+  min-height:100px;padding:14px;border-radius:14px;
+  border:1px solid var(--border);background:var(--card);
+  color:var(--text);text-align:left;font-size:14px;cursor:pointer;
+}
+.strategy strong{display:block;font-size:15px;margin-bottom:5px}
+.strategy.active{border:2px solid var(--blue);background:#12233d}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+input,select{
+  width:100%;background:#0b1017;color:var(--text);
+  border:1px solid var(--border);border-radius:10px;
+  padding:12px;font-size:16px;min-height:46px;
+}
+input:focus,select:focus{outline:2px solid var(--blue)}
+.check{
+  display:flex;align-items:center;gap:10px;padding-top:10px;
+  color:var(--text);font-size:14px
+}
+.check input{width:20px;height:20px;min-height:auto}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.metric{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:14px;min-width:0
+}
+.metric .label{font-size:12px;color:var(--muted)}
+.metric .value{
+  font-size:20px;font-weight:700;margin-top:5px;
+  overflow-wrap:anywhere
+}
+.good{color:var(--green)}.warn{color:var(--orange)}.bad{color:var(--red)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button.action,a.action{
+  appearance:none;text-decoration:none;background:#182231;color:var(--text);
+  border:1px solid var(--border);border-radius:10px;
+  padding:11px 14px;font-size:14px;cursor:pointer
+}
+button.primary{background:var(--blue);border-color:var(--blue);color:white}
+.source{
+  background:#0c121a;border:1px solid var(--border);
+  border-radius:12px;padding:13px;margin-top:10px
+}
+.source a{color:var(--blue2);font-weight:600}
+.chartbox{width:100%;overflow:hidden}
+svg{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600}
+.tablewrap{overflow-x:auto}
+.notice{
+  padding:12px;border-radius:10px;background:#101722;
+  color:var(--muted);font-size:12px;margin-top:12px
+}
+@media(max-width:700px){
+  h1{font-size:26px}
+  .options{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  body{background:white;color:black}
+  .panel,.metric{background:white;border-color:#ccc}
+  .actions{display:none}
+  .sub,.small,label,.notice{color:#555}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<h1>Passive Income Strategy Simulator</h1>
+<div class="sub">MYR income planning • capital preservation • inflation-aware projections</div>
+
+<section class="panel thesis">
+  <strong>Income today. Capital protection tomorrow.</strong>
+  <p>
+    Compare three approaches for converting a MYR portfolio into passive income
+    while measuring what happens to both nominal capital and purchasing power.
+  </p>
+  <div class="small">
+    Illustrative planning tool only. Actual MGS/GII cash flows depend on purchase
+    price, coupon/profit rate, maturity, accrued interest, dealing spread and reinvestment rates.
+  </div>
+</section>
+
+<section class="panel">
+<h2>1. Choose your strategy</h2>
+<div class="options">
+<button class="strategy active" data-mode="max">
+<strong>Option 1 — Maximum Income</strong>
+Use the assumed nominal return as the approximate spending capacity while targeting nominal capital preservation.
+</button>
+
+<button class="strategy" data-mode="real">
+<strong>Option 2 — Preserve Real Capital</strong>
+Target ending capital that keeps pace with inflation while distributions rise with inflation.
+</button>
+
+<button class="strategy" data-mode="balanced">
+<strong>Option 3 — Balanced</strong>
+Take meaningful inflation-linked income while allowing part of the return to remain invested.
+</button>
+</div>
+</section>
+
+<section class="panel">
+<h2>2. Set your assumptions</h2>
+
+<div class="grid">
+<div>
+<label for="capital">Initial capital (RM)</label>
+<input id="capital" type="number" value="5000000" min="1000" step="10000">
+</div>
+
+<div>
+<label for="yield">Expected annual portfolio return</label>
+<select id="yield">
+<option value="2">2.00% — severe stress</option>
+<option value="2.5">2.50%</option>
+<option value="3">3.00% — stress</option>
+<option value="3.25">3.25%</option>
+<option value="3.5">3.50%</option>
+<option value="3.75">3.75%</option>
+<option value="3.9">3.90%</option>
+<option value="4">4.00%</option>
+<option value="4.14">4.14%</option>
+<option value="4.17" selected>4.17% — 10Y MGS reference</option>
+<option value="4.25">4.25%</option>
+<option value="4.5">4.50%</option>
+<option value="4.75">4.75%</option>
+<option value="5">5.00%</option>
+<option value="5.25">5.25%</option>
+<option value="5.5">5.50%</option>
+<option value="5.75">5.75%</option>
+<option value="6">6.00% — high-return scenario</option>
+</select>
+</div>
+
+<div>
+<label for="inflation">Annual inflation assumption</label>
+<select id="inflation">
+<option value="1">1.00%</option>
+<option value="1.5">1.50%</option>
+<option value="1.8">1.80% — recent CPI reference</option>
+<option value="2">2.00%</option>
+<option value="2.5">2.50%</option>
+<option value="3" selected>3.00% — planning base</option>
+<option value="3.5">3.50%</option>
+<option value="4">4.00%</option>
+<option value="4.5">4.50%</option>
+<option value="5">5.00% — stress</option>
+<option value="5.5">5.50%</option>
+<option value="6">6.00% — severe stress</option>
+</select>
+</div>
+
+<div>
+<label for="years">Planning horizon</label>
+<select id="years">
+<option value="5">5 years</option>
+<option value="10" selected>10 years</option>
+<option value="15">15 years</option>
+<option value="20">20 years</option>
+<option value="25">25 years</option>
+<option value="30">30 years</option>
+</select>
+</div>
+
+<div>
+<label for="monthly">Starting monthly distribution (RM)</label>
+<input id="monthly" type="number" value="17375" min="0" step="100">
+</div>
+
+<div>
+<label>Distribution treatment</label>
+<div class="check">
+<input id="escalate" type="checkbox">
+<span>Increase distribution annually with inflation</span>
+</div>
+</div>
+</div>
+
+<div class="actions">
+<button type="button" class="action primary" id="apply">Recalculate</button>
+<button type="button" class="action" id="reset">Reset strategy defaults</button>
+</div>
+</section>
+
+<section class="panel">
+<h2>3. Projection</h2>
+
+<div class="metrics">
+<div class="metric">
+<div class="label">Initial capital</div>
+<div class="value" id="mInitial">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Starting monthly income</div>
+<div class="value" id="mMonthly">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Ending nominal capital</div>
+<div class="value" id="mNominal">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Ending capital in today's RM</div>
+<div class="value" id="mReal">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Final-year monthly income</div>
+<div class="value" id="mFinalIncome">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Total distributions</div>
+<div class="value" id="mDistributed">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Real-capital target</div>
+<div class="value" id="mTarget">—</div>
+</div>
+
+<div class="metric">
+<div class="label">Capital status</div>
+<div class="value" id="mStatus">—</div>
+</div>
+</div>
+
+<div class="notice" id="interpretation"></div>
+</section>
+
+<section class="panel">
+<h2>Capital path</h2>
+<div class="chartbox">
+<svg id="chart" viewBox="0 0 800 330" role="img" aria-label="Projected capital chart"></svg>
+</div>
+</section>
+
+<section class="panel">
+<h2>Year-by-year projection</h2>
+<div class="tablewrap">
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Opening</th>
+<th>Income paid</th>
+<th>Ending</th>
+<th>Real value</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<div class="actions">
+<button type="button" class="action" id="csv">Export CSV</button>
+<button type="button" class="action" id="print">Print / Save PDF</button>
+</div>
+</section>
+
+<section class="panel">
+<h2>Official references</h2>
+
+<div class="source">
+<strong>Bank Negara Malaysia — MGS & MGII benchmark yields</strong><br>
+<span class="small">Use BNM's current market data when selecting your return assumption.</span><br>
+<a href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
+target="_blank" rel="noopener">Open BNM benchmark yields ↗</a>
+</div>
+
+<div class="source">
+<strong>Bank Negara Malaysia — Monthly Statistical Bulletin</strong><br>
+<span class="small">Official monetary, financial and inflation-related statistics.</span><br>
+<a href="https://www.bnm.gov.my/msb-2026"
+target="_blank" rel="noopener">Open BNM statistics ↗</a>
+</div>
+
+<div class="notice">
+This simulator is an educational planning tool, not investment advice or a guarantee.
+MGS/GII are Malaysian sovereign securities but market prices can fluctuate before maturity.
+Yield-to-maturity is not the same as cash coupon/profit income. Taxes, fees, spreads,
+liquidity, reinvestment rates and security-specific cash flows are not modeled.
+</div>
+</section>
+
+</div>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+
+let mode = "max";
+let customSpend = false;
+let lastRows = [];
+
+const fmt = n =>
+  "RM" + Math.round(Math.max(0,n)).toLocaleString("en-MY");
+
+const pct = n => (n*100).toFixed(2)+"%";
+
+function values(){
+  const capital = Math.max(1000, Number($("capital").value)||5000000);
+  const rate = Math.max(0, Number($("yield").value)||0)/100;
+  const inflation = Math.max(0, Number($("inflation").value)||0)/100;
+  const years = Math.max(1, Number($("years").value)||10);
+  const monthly = Math.max(0, Number($("monthly").value)||0);
+  return {capital,rate,inflation,years,monthly};
+}
+
+function simulate(startMonthly){
+  const v=values();
+  const mr=Math.pow(1+v.rate,1/12)-1;
+  let bal=v.capital;
+  let payment=startMonthly;
+  let total=0;
+  const rows=[];
+
+  for(let y=1;y<=v.years;y++){
+    const opening=bal;
+    let annualPaid=0;
+
+    for(let m=1;m<=12;m++){
+      bal*=1+mr;
+      const actual=Math.min(payment,bal);
+      bal-=actual;
+      annualPaid+=actual;
+      total+=actual;
+    }
+
+    const real=bal/Math.pow(1+v.inflation,y);
+    rows.push({
+      year:y,opening,
+      paid:annualPaid,
+      ending:bal,
+      real,
+      monthly:payment
+    });
+
+    if($("escalate").checked) payment*=1+v.inflation;
+  }
+
+  return {balance:bal,total,rows,finalMonthly:payment/
+    ($("escalate").checked ? (1+v.inflation) : 1)};
+}
+
+function solveRealMonthly(){
+  const v=values();
+  const target=v.capital*Math.pow(1+v.inflation,v.years);
+  const old=$("escalate").checked;
+  $("escalate").checked=true;
+
+  let lo=0, hi=v.capital/12;
+
+  for(let i=0;i<70;i++){
+    const mid=(lo+hi)/2;
+    const result=simulate(mid);
+    if(result.balance>target) lo=mid;
+    else hi=mid;
+  }
+
+  $("escalate").checked=old;
+  return (lo+hi)/2;
+}
+
+function defaults(){
+  const v=values();
+
+  if(mode==="max"){
+    $("monthly").value=Math.round(v.capital*v.rate/12);
+    $("escalate").checked=false;
+  }
+
+  if(mode==="real"){
+    $("escalate").checked=true;
+    $("monthly").value=Math.round(solveRealMonthly());
+  }
+
+  if(mode==="balanced"){
+    $("monthly").value=Math.round(v.capital*0.024/12);
+    $("escalate").checked=true;
+  }
+
+  customSpend=false;
+  calculate();
+}
+
+function calculate(){
+  const v=values();
+  const result=simulate(v.monthly);
+  lastRows=result.rows;
+
+  const realEnd=result.balance/Math.pow(1+v.inflation,v.years);
+  const target=v.capital*Math.pow(1+v.inflation,v.years);
+
+  $("mInitial").textContent=fmt(v.capital);
+  $("mMonthly").textContent=fmt(v.monthly);
+  $("mNominal").textContent=fmt(result.balance);
+  $("mReal").textContent=fmt(realEnd);
+  $("mFinalIncome").textContent=fmt(
+    result.rows.length ? result.rows[result.rows.length-1].monthly : v.monthly
+  );
+  $("mDistributed").textContent=fmt(result.total);
+  $("mTarget").textContent=fmt(target);
+
+  const status=$("mStatus");
+  status.className="value";
+
+  if(result.balance>=target*0.995){
+    status.textContent="Real capital preserved";
+    status.classList.add("good");
+  }else if(result.balance>=v.capital*0.995){
+    status.textContent="Nominal capital preserved";
+    status.classList.add("warn");
+  }else{
+    status.textContent="Capital declining";
+    status.classList.add("bad");
+  }
+
+  const realRatio=realEnd/v.capital;
+  $("interpretation").innerHTML =
+    "At <strong>"+pct(v.rate)+"</strong> assumed return and <strong>"+
+    pct(v.inflation)+"</strong> inflation, the projection ends with <strong>"+
+    fmt(result.balance)+"</strong> nominal capital, equivalent to approximately <strong>"+
+    fmt(realEnd)+"</strong> in today's purchasing power. That is "+
+    (realRatio>=1 ? "above" : "below")+" the starting real capital of "+
+    fmt(v.capital)+".";
+
+  renderTable(result.rows);
+  renderChart(result.rows,v.capital);
+}
+
+function renderTable(rows){
+  $("tbody").innerHTML=rows.map(r=>`
+    <tr>
+      <td>${r.year}</td>
+      <td>${fmt(r.opening)}</td>
+      <td>${fmt(r.paid)}</td>
+      <td>${fmt(r.ending)}</td>
+      <td>${fmt(r.real)}</td>
+    </tr>`).join("");
+}
+
+function renderChart(rows,initial){
+  const svg=$("chart");
+  const W=800,H=330,L=70,R=22,T=24,B=48;
+  const data=[{year:0,ending:initial,real:initial},...rows];
+  const max=Math.max(...data.map(d=>Math.max(d.ending,d.real)),1);
+  const x=i=>L+(W-L-R)*(i/(data.length-1||1));
+  const y=v=>T+(H-T-B)*(1-v/max);
+
+  let html="";
+
+  for(let i=0;i<=4;i++){
+    const yy=T+(H-T-B)*i/4;
+    const val=max*(1-i/4);
+    html+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"
+      stroke="#26303d" stroke-width="1"/>
+      <text x="${L-8}" y="${yy+4}" text-anchor="end"
+      fill="#8996a6" font-size="11">${(val/1000000).toFixed(1)}m</text>`;
+  }
+
+  const nominal=data.map((d,i)=>`${x(i)},${y(d.ending)}`).join(" ");
+  const real=data.map((d,i)=>`${x(i)},${y(d.real)}`).join(" ");
+
+  html+=`<polyline points="${nominal}" fill="none"
+    stroke="#59a5ff" stroke-width="4" stroke-linejoin="round"/>`;
+
+  html+=`<polyline points="${real}" fill="none"
+    stroke="#34c98f" stroke-width="3" stroke-dasharray="7 6"
+    stroke-linejoin="round"/>`;
+
+  data.forEach((d,i)=>{
+    html+=`<circle cx="${x(i)}" cy="${y(d.ending)}" r="3.5" fill="#59a5ff"/>`;
+    if(i===0 || i===data.length-1 || i%5===0){
+      html+=`<text x="${x(i)}" y="${H-22}" text-anchor="middle"
+      fill="#8996a6" font-size="11">${d.year}</text>`;
+    }
+  });
+
+  html+=`
+  <text x="${W-210}" y="20" fill="#59a5ff" font-size="12">● Nominal capital</text>
+  <text x="${W-105}" y="20" fill="#34c98f" font-size="12">● Real capital</text>
+  <text x="${W/2}" y="${H-5}" text-anchor="middle" fill="#8996a6" font-size="11">Year</text>`;
+
+  svg.innerHTML=html;
+}
+
+document.querySelectorAll(".strategy").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".strategy").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    mode=btn.dataset.mode;
+    defaults();
+  });
+});
+
+$("monthly").addEventListener("input",()=>{customSpend=true;calculate()});
+$("escalate").addEventListener("change",()=>{customSpend=true;calculate()});
+
+["capital","yield","inflation","years"].forEach(id=>{
+  $(id).addEventListener("change",()=>{
+    if(customSpend) calculate();
+    else defaults();
+  });
+});
+
+$("apply").addEventListener("click",calculate);
+$("reset").addEventListener("click",defaults);
+$("print").addEventListener("click",()=>window.print());
+
+$("csv").addEventListener("click",()=>{
+  if(!lastRows.length)return;
+
+  let csv="Year,Opening Capital,Income Paid,Ending Capital,Real Capital\n";
+  lastRows.forEach(r=>{
+    csv += `${r.year},${Math.round(r.opening)},${Math.round(r.paid)},${Math.round(r.ending)},${Math.round(r.real)}\n`;
+  });
+
+  const blob=new Blob([csv],{type:"text/csv"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="passive-income-projection.csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+defaults();
+})();
+</script>
+</body>
+</html>
