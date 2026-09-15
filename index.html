@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080b10">
-<title>Passive Income Strategy Simulator V2</title>
+<title>Passive Income Strategy Simulator</title>
 
 <style>
 :root{
@@ -32,11 +32,6 @@ h2{font-size:20px;margin:0 0 14px}
 }
 .thesis strong{font-size:19px}
 .small{font-size:13px;color:var(--muted)}
-.version{
- display:inline-block;background:#12233d;color:var(--blue2);
- border:1px solid #31598c;border-radius:20px;
- padding:4px 9px;font-size:12px;margin-bottom:10px;
-}
 .options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .strategy{
  min-height:105px;padding:14px;border-radius:14px;
@@ -67,7 +62,9 @@ input:focus,select:focus{outline:2px solid var(--blue)}
 .metric .value{
  font-size:20px;font-weight:700;margin-top:5px;overflow-wrap:anywhere
 }
-.good{color:var(--green)}.warn{color:var(--orange)}.bad{color:var(--red)}
+.good{color:var(--green)}
+.warn{color:var(--orange)}
+.bad{color:var(--red)}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 button.action{
  appearance:none;background:#182231;color:var(--text);
@@ -95,12 +92,19 @@ svg{width:100%;height:auto;display:block}
  display:flex;gap:18px;justify-content:center;
  color:var(--muted);font-size:12px;margin:8px 0 2px
 }
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.dot{
+ display:inline-block;width:9px;height:9px;
+ border-radius:50%;margin-right:5px
+}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:10px 8px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+th,td{
+ padding:10px 8px;border-bottom:1px solid var(--border);
+ text-align:right;white-space:nowrap
+}
 th:first-child,td:first-child{text-align:left}
 th{color:var(--muted);font-weight:600}
 .tablewrap{overflow-x:auto}
+
 @media(max-width:700px){
  h1{font-size:26px}
  .options{grid-template-columns:1fr}
@@ -123,9 +127,10 @@ th{color:var(--muted);font-weight:600}
 <body>
 <div class="wrap">
 
-<div class="version">VERSION 2</div>
 <h1>Passive Income Strategy Simulator</h1>
-<div class="sub">MYR income planning • capital preservation • inflation-aware projections</div>
+<div class="sub">
+MYR income planning • capital preservation • inflation-aware projections
+</div>
 
 <section class="panel thesis">
 <strong>Income today. Capital protection tomorrow.</strong>
@@ -141,21 +146,25 @@ coupon/profit rate, maturity, accrued interest, dealing spread and reinvestment 
 
 <section class="panel">
 <h2>1. Choose your strategy</h2>
+
 <div class="options">
 
 <button class="strategy active" data-mode="max">
 <strong>Option 1 — Maximum Income</strong>
-Calculate the monthly distribution designed to keep nominal capital approximately unchanged under the selected return assumption.
+Maximise current income while aiming to maintain the nominal amount of capital.
+Inflation may reduce its future purchasing power.
 </button>
 
 <button class="strategy" data-mode="real">
-<strong>Option 2 — Preserve Real Capital</strong>
-Target ending nominal capital sufficient to preserve the starting capital's purchasing power after inflation.
+<strong>Option 2 — Preserve Purchasing Power</strong>
+Take a lower inflation-linked income while targeting preservation of the
+starting capital's purchasing power.
 </button>
 
 <button class="strategy" data-mode="balanced">
 <strong>Option 3 — Balanced</strong>
-Take meaningful inflation-linked income while retaining part of the portfolio return for capital growth.
+Take meaningful inflation-linked income while retaining part of the portfolio
+return for capital growth.
 </button>
 
 </div>
@@ -252,14 +261,47 @@ Take meaningful inflation-linked income while retaining part of the portfolio re
 <h2>3. Projection</h2>
 
 <div class="metrics">
-<div class="metric"><div class="label">Initial capital</div><div class="value" id="mInitial"></div></div>
-<div class="metric"><div class="label">Starting monthly income</div><div class="value" id="mMonthly"></div></div>
-<div class="metric"><div class="label">Ending nominal capital</div><div class="value" id="mNominal"></div></div>
-<div class="metric"><div class="label">Ending capital in today's RM</div><div class="value" id="mReal"></div></div>
-<div class="metric"><div class="label">Final-year monthly income</div><div class="value" id="mFinalIncome"></div></div>
-<div class="metric"><div class="label">Total distributions</div><div class="value" id="mDistributed"></div></div>
-<div class="metric"><div class="label">Real-capital target</div><div class="value" id="mTarget"></div></div>
-<div class="metric"><div class="label">Capital status</div><div class="value" id="mStatus"></div></div>
+
+<div class="metric">
+<div class="label">Initial capital</div>
+<div class="value" id="mInitial"></div>
+</div>
+
+<div class="metric">
+<div class="label">Starting monthly income</div>
+<div class="value" id="mMonthly"></div>
+</div>
+
+<div class="metric">
+<div class="label">Ending capital (nominal RM)</div>
+<div class="value" id="mNominal"></div>
+</div>
+
+<div class="metric">
+<div class="label">Ending purchasing power (today's RM)</div>
+<div class="value" id="mReal"></div>
+</div>
+
+<div class="metric">
+<div class="label">Final-year monthly income</div>
+<div class="value" id="mFinalIncome"></div>
+</div>
+
+<div class="metric">
+<div class="label">Total distributions</div>
+<div class="value" id="mDistributed"></div>
+</div>
+
+<div class="metric">
+<div class="label">Capital needed to preserve purchasing power</div>
+<div class="value" id="mTarget"></div>
+</div>
+
+<div class="metric">
+<div class="label">Purchasing-power status</div>
+<div class="value" id="mStatus"></div>
+</div>
+
 </div>
 
 <div class="notice" id="interpretation"></div>
@@ -267,10 +309,18 @@ Take meaningful inflation-linked income while retaining part of the portfolio re
 
 <section class="panel">
 <h2>Capital path</h2>
+
 <div class="legend">
-<span><i class="dot" style="background:#59a5ff"></i>Nominal capital</span>
-<span><i class="dot" style="background:#34c98f"></i>Real capital</span>
+<span>
+<i class="dot" style="background:#59a5ff"></i>
+Nominal capital
+</span>
+<span>
+<i class="dot" style="background:#34c98f"></i>
+Purchasing power
+</span>
 </div>
+
 <div class="chartbox">
 <svg id="chart" viewBox="0 0 800 320"></svg>
 </div>
@@ -278,6 +328,7 @@ Take meaningful inflation-linked income while retaining part of the portfolio re
 
 <section class="panel">
 <h2>Year-by-year projection</h2>
+
 <div class="tablewrap">
 <table>
 <thead>
@@ -286,8 +337,8 @@ Take meaningful inflation-linked income while retaining part of the portfolio re
 <th>Opening</th>
 <th>Monthly income</th>
 <th>Annual income</th>
-<th>Ending</th>
-<th>Real value</th>
+<th>Ending nominal</th>
+<th>Purchasing power</th>
 </tr>
 </thead>
 <tbody id="tbody"></tbody>
@@ -306,46 +357,51 @@ Take meaningful inflation-linked income while retaining part of the portfolio re
 <div class="method">
 <strong>Return convention</strong>
 <div class="small">
-The selected annual return is treated as an effective annual total return and converted
-to an equivalent monthly rate: (1 + annual return)^(1/12) − 1.
+The selected annual return is treated as an effective annual total return and
+converted to an equivalent monthly rate:
+(1 + annual return)^(1/12) − 1.
 </div>
 </div>
 
 <div class="method">
-<strong>Option 1 — Nominal preservation</strong>
+<strong>Option 1 — Maximum Income</strong>
 <div class="small">
-The default monthly distribution equals initial capital multiplied by the equivalent
-monthly return. Under a constant-return assumption this is designed to keep nominal
-capital approximately unchanged.
+The default monthly distribution equals initial capital multiplied by the
+equivalent monthly return. Under a constant-return assumption this is designed
+to keep nominal capital approximately unchanged. It does not preserve
+purchasing power when inflation is positive.
 </div>
 </div>
 
 <div class="method">
-<strong>Option 2 — Real preservation</strong>
+<strong>Option 2 — Preserve Purchasing Power</strong>
 <div class="small">
 The simulator solves for an inflation-linked starting monthly distribution while
-targeting ending nominal capital equal to initial capital compounded by the selected
-inflation rate.
+targeting ending nominal capital equal to initial capital compounded by the
+selected inflation rate. This aims to preserve the original capital's purchasing
+power.
 </div>
 </div>
 
 <div class="method">
 <strong>Option 3 — Balanced</strong>
 <div class="small">
-The default first-year distribution is 2.4% of initial capital annually and rises
-with inflation. The remaining return stays invested.
+The default first-year distribution is 2.4% of initial capital annually and
+rises with inflation. The remaining return stays invested. Nominal capital may
+grow while purchasing power can still decline.
 </div>
 </div>
 
 <div class="method">
 <strong>MGS/GII cash-flow warning</strong>
 <div class="small">
-MGS/GII yield-to-maturity is not the same as coupon/profit cash income. Government
-securities normally make periodic payments rather than monthly distributions.
-A real implementation may require a cash reserve or maturity/coupon ladder to
-smooth spending into monthly cash flow.
+MGS/GII yield-to-maturity is not the same as coupon/profit cash income.
+Government securities normally make periodic payments rather than monthly
+distributions. A real implementation may require a cash reserve or
+maturity/coupon ladder to smooth spending into monthly cash flow.
 </div>
 </div>
+
 </section>
 
 <section class="panel">
@@ -353,29 +409,38 @@ smooth spending into monthly cash flow.
 
 <div class="source">
 <strong>Bank Negara Malaysia — MGS & MGII benchmark yields</strong><br>
-<span class="small">Point-in-time market references should be checked against current BNM data.</span><br>
+<span class="small">
+Point-in-time market references should be checked against current BNM data.
+</span><br>
 <a href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
-target="_blank" rel="noopener">Open BNM benchmark yields ↗</a>
+target="_blank" rel="noopener">
+Open BNM benchmark yields ↗
+</a>
 </div>
 
 <div class="source">
 <strong>Bank Negara Malaysia — Monthly Statistical Bulletin</strong><br>
 <a href="https://www.bnm.gov.my/msb-2026"
-target="_blank" rel="noopener">Open BNM statistics ↗</a>
+target="_blank" rel="noopener">
+Open BNM statistics ↗
+</a>
 </div>
 
 <div class="source">
 <strong>Department of Statistics Malaysia — Consumer Price Index</strong><br>
 <a href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-july-2026"
-target="_blank" rel="noopener">Open DOSM CPI reference ↗</a>
+target="_blank" rel="noopener">
+Open DOSM CPI reference ↗
+</a>
 </div>
 
 <div class="notice">
 Educational planning tool only; not investment advice or a guarantee.
-Returns and inflation are assumed constant for illustration. Taxes, fees, spreads,
-liquidity, defaults, changing reinvestment rates and security-specific cash flows
-are not modeled. MGS/GII market prices may fluctuate before maturity.
+Returns and inflation are assumed constant for illustration. Taxes, fees,
+spreads, liquidity, defaults, changing reinvestment rates and security-specific
+cash flows are not modeled. MGS/GII market prices may fluctuate before maturity.
 </div>
+
 </section>
 
 </div>
@@ -383,21 +448,22 @@ are not modeled. MGS/GII market prices may fluctuate before maturity.
 <script>
 (() => {
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-let mode="max";
-let custom=false;
-let lastRows=[];
+let mode = "max";
+let custom = false;
+let lastRows = [];
 
-const fmt=n=>"RM"+Math.round(Math.max(0,n)).toLocaleString("en-MY");
+const fmt = n =>
+ "RM" + Math.round(Math.max(0,n)).toLocaleString("en-MY");
 
 function values(){
- return{
-  capital:Math.max(1000,Number($("capital").value)||5000000),
-  rate:Math.max(0,Number($("yield").value)||0)/100,
-  inflation:Math.max(0,Number($("inflation").value)||0)/100,
-  years:Math.max(1,Number($("years").value)||10),
-  monthly:Math.max(0,Number($("monthly").value)||0)
+ return {
+  capital: Math.max(1000,Number($("capital").value)||5000000),
+  rate: Math.max(0,Number($("yield").value)||0)/100,
+  inflation: Math.max(0,Number($("inflation").value)||0)/100,
+  years: Math.max(1,Number($("years").value)||10),
+  monthly: Math.max(0,Number($("monthly").value)||0)
  };
 }
 
@@ -406,33 +472,42 @@ function monthlyRate(rate){
 }
 
 function simulate(startMonthly,forceEscalate=null){
- const v=values();
- const mr=monthlyRate(v.rate);
- const escalate=forceEscalate===null ? $("escalate").checked : forceEscalate;
 
- let balance=v.capital;
- let payment=startMonthly;
- let total=0;
- let depleted=false;
- const rows=[];
+ const v = values();
+ const mr = monthlyRate(v.rate);
+
+ const escalate =
+  forceEscalate===null
+  ? $("escalate").checked
+  : forceEscalate;
+
+ let balance = v.capital;
+ let payment = startMonthly;
+ let total = 0;
+ let depleted = false;
+
+ const rows = [];
 
  for(let y=1;y<=v.years;y++){
-  const opening=balance;
-  const yearMonthly=payment;
-  let annualPaid=0;
+
+  const opening = balance;
+  const yearMonthly = payment;
+  let annualPaid = 0;
 
   for(let m=1;m<=12;m++){
+
    if(balance<=0){
     depleted=true;
     break;
    }
 
-   balance*=1+mr;
+   balance *= 1+mr;
 
-   const actual=Math.min(payment,balance);
-   balance-=actual;
-   annualPaid+=actual;
-   total+=actual;
+   const actual = Math.min(payment,balance);
+
+   balance -= actual;
+   annualPaid += actual;
+   total += actual;
 
    if(actual+0.01<payment){
     depleted=true;
@@ -440,7 +515,8 @@ function simulate(startMonthly,forceEscalate=null){
    }
   }
 
-  const real=balance/Math.pow(1+v.inflation,y);
+  const real =
+   balance/Math.pow(1+v.inflation,y);
 
   rows.push({
    year:y,
@@ -451,109 +527,183 @@ function simulate(startMonthly,forceEscalate=null){
    real
   });
 
-  if(escalate) payment*=1+v.inflation;
+  if(escalate){
+   payment *= 1+v.inflation;
+  }
  }
 
- return{
+ return {
   balance,
   total,
   rows,
   depleted,
-  finalMonthly:rows.length ? rows[rows.length-1].monthly : startMonthly
+  finalMonthly:
+   rows.length ? rows[rows.length-1].monthly : startMonthly
  };
 }
 
 function solveReal(){
- const v=values();
- const target=v.capital*Math.pow(1+v.inflation,v.years);
 
- const noSpend=simulate(0,true);
+ const v = values();
+
+ const target =
+  v.capital*Math.pow(1+v.inflation,v.years);
+
+ const noSpend = simulate(0,true);
 
  if(noSpend.balance<target){
-  return{monthly:0,possible:false};
+  return {
+   monthly:0,
+   possible:false
+  };
  }
 
  let lo=0;
  let hi=v.capital/12;
 
  for(let i=0;i<80;i++){
+
   const mid=(lo+hi)/2;
   const result=simulate(mid,true);
 
-  if(result.balance>target) lo=mid;
-  else hi=mid;
+  if(result.balance>target){
+   lo=mid;
+  }else{
+   hi=mid;
+  }
  }
 
- return{monthly:(lo+hi)/2,possible:true};
+ return {
+  monthly:(lo+hi)/2,
+  possible:true
+ };
 }
 
 function setDefaults(){
+
  const v=values();
 
  if(mode==="max"){
+
   $("escalate").checked=false;
-  $("monthly").value=Math.round(v.capital*monthlyRate(v.rate));
+
+  $("monthly").value=
+   Math.round(
+    v.capital*monthlyRate(v.rate)
+   );
  }
 
  if(mode==="real"){
+
   $("escalate").checked=true;
+
   const solved=solveReal();
-  $("monthly").value=Math.round(solved.monthly);
+
+  $("monthly").value=
+   Math.round(solved.monthly);
  }
 
  if(mode==="balanced"){
+
   $("escalate").checked=true;
-  $("monthly").value=Math.round(v.capital*0.024/12);
+
+  $("monthly").value=
+   Math.round(v.capital*0.024/12);
  }
 
  custom=false;
+
  calculate();
 }
 
 function calculate(){
+
  const v=values();
- const result=simulate(v.monthly);
+
+ const result=
+  simulate(v.monthly);
+
  lastRows=result.rows;
 
- const realEnd=result.balance/Math.pow(1+v.inflation,v.years);
- const target=v.capital*Math.pow(1+v.inflation,v.years);
+ const realEnd=
+  result.balance/
+  Math.pow(1+v.inflation,v.years);
 
- $("capitalFormatted").textContent=fmt(v.capital);
- $("monthlyFormatted").textContent=fmt(v.monthly)+" per month";
+ const target=
+  v.capital*
+  Math.pow(1+v.inflation,v.years);
 
- $("mInitial").textContent=fmt(v.capital);
- $("mMonthly").textContent=fmt(v.monthly);
- $("mNominal").textContent=fmt(result.balance);
- $("mReal").textContent=fmt(realEnd);
- $("mFinalIncome").textContent=fmt(result.finalMonthly);
- $("mDistributed").textContent=fmt(result.total);
- $("mTarget").textContent=fmt(target);
+ $("capitalFormatted").textContent=
+  fmt(v.capital);
+
+ $("monthlyFormatted").textContent=
+  fmt(v.monthly)+" per month";
+
+ $("mInitial").textContent=
+  fmt(v.capital);
+
+ $("mMonthly").textContent=
+  fmt(v.monthly);
+
+ $("mNominal").textContent=
+  fmt(result.balance);
+
+ $("mReal").textContent=
+  fmt(realEnd);
+
+ $("mFinalIncome").textContent=
+  fmt(result.finalMonthly);
+
+ $("mDistributed").textContent=
+  fmt(result.total);
+
+ $("mTarget").textContent=
+  fmt(target);
 
  const status=$("mStatus");
+
  status.className="value";
 
- const nominalRatio=result.balance/v.capital;
- const realRatio=realEnd/v.capital;
+ const nominalRatio=
+  result.balance/v.capital;
+
+ const realRatio=
+  realEnd/v.capital;
+
+ const realChange=
+  (realRatio-1)*100;
 
  if(result.depleted || result.balance<=1){
-  status.textContent="Capital depleted";
+
+  status.textContent=
+   "Capital depleted";
+
   status.classList.add("bad");
+
  }
  else if(realRatio>=0.995){
-  status.textContent="Real capital preserved";
+
+  status.textContent=
+   "Purchasing power preserved";
+
   status.classList.add("good");
+
  }
  else if(nominalRatio>=0.995){
-  status.textContent="Nominal capital preserved";
-  status.classList.add("good");
- }
- else if(nominalRatio>=0.90){
-  status.textContent="Nominal capital eroding";
+
+  status.textContent=
+   `Purchasing power ↓ ${Math.abs(realChange).toFixed(1)}%`;
+
   status.classList.add("warn");
+
  }
  else{
-  status.textContent="Material capital drawdown";
+
+  status.textContent=
+   `Capital drawdown • purchasing power ↓ ${Math.abs(realChange).toFixed(1)}%`;
+
   status.classList.add("bad");
+
  }
 
  let message=
@@ -563,134 +713,342 @@ function calculate(){
   `<strong>${fmt(realEnd)}</strong> in today's purchasing power. `;
 
  if(realRatio>=0.995){
-  message+="The starting purchasing power is approximately preserved under these assumptions.";
- }else if(nominalRatio>=0.995){
-  message+="Nominal capital is approximately preserved, but inflation reduces its purchasing power.";
- }else{
-  message+="Both nominal capital and purchasing power decline under these assumptions.";
+
+  message+=
+   "The starting purchasing power is approximately preserved under these assumptions.";
+
+ }
+ else if(nominalRatio>=0.995){
+
+  message+=
+   `Nominal capital is maintained, but purchasing power declines by approximately `+
+   `<strong>${Math.abs(realChange).toFixed(1)}%</strong>.`;
+
+ }
+ else{
+
+  message+=
+   `Nominal capital declines and purchasing power falls by approximately `+
+   `<strong>${Math.abs(realChange).toFixed(1)}%</strong>.`;
+
  }
 
- $("interpretation").innerHTML=message;
+ $("interpretation").innerHTML=
+  message;
 
  renderTable(result.rows);
- renderChart(result.rows,v.capital);
+
+ renderChart(
+  result.rows,
+  v.capital
+ );
 }
 
 function renderTable(rows){
- $("tbody").innerHTML=rows.map(r=>`
- <tr>
- <td>${r.year}</td>
- <td>${fmt(r.opening)}</td>
- <td>${fmt(r.monthly)}</td>
- <td>${fmt(r.paid)}</td>
- <td>${fmt(r.ending)}</td>
- <td>${fmt(r.real)}</td>
- </tr>`).join("");
+
+ $("tbody").innerHTML=
+  rows.map(r=>`
+   <tr>
+    <td>${r.year}</td>
+    <td>${fmt(r.opening)}</td>
+    <td>${fmt(r.monthly)}</td>
+    <td>${fmt(r.paid)}</td>
+    <td>${fmt(r.ending)}</td>
+    <td>${fmt(r.real)}</td>
+   </tr>
+  `).join("");
 }
 
 function renderChart(rows,initial){
+
  const svg=$("chart");
- const W=800,H=320,L=72,R=24,T=20,B=42;
- const data=[{year:0,ending:initial,real:initial},...rows];
 
- const max=Math.max(...data.map(d=>Math.max(d.ending,d.real)),1);
+ const W=800;
+ const H=320;
+ const L=72;
+ const R=24;
+ const T=20;
+ const B=42;
 
- const x=i=>L+(W-L-R)*(i/(data.length-1||1));
- const y=v=>T+(H-T-B)*(1-v/max);
+ const data=[
+  {
+   year:0,
+   ending:initial,
+   real:initial
+  },
+  ...rows
+ ];
+
+ const max=
+  Math.max(
+   ...data.map(
+    d=>Math.max(d.ending,d.real)
+   ),
+   1
+  );
+
+ const x=i=>
+  L+
+  (W-L-R)*
+  (i/(data.length-1||1));
+
+ const y=v=>
+  T+
+  (H-T-B)*
+  (1-v/max);
 
  let html="";
 
  for(let i=0;i<=4;i++){
-  const yy=T+(H-T-B)*i/4;
-  const val=max*(1-i/4);
+
+  const yy=
+   T+
+   (H-T-B)*i/4;
+
+  const val=
+   max*(1-i/4);
 
   html+=`
-  <line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"
-  stroke="#26303d" stroke-width="1"/>
-  <text x="${L-9}" y="${yy+4}" text-anchor="end"
-  fill="#8996a6" font-size="11">${(val/1000000).toFixed(1)}m</text>`;
+   <line
+    x1="${L}"
+    y1="${yy}"
+    x2="${W-R}"
+    y2="${yy}"
+    stroke="#26303d"
+    stroke-width="1"
+   />
+
+   <text
+    x="${L-9}"
+    y="${yy+4}"
+    text-anchor="end"
+    fill="#8996a6"
+    font-size="11"
+   >
+    ${(val/1000000).toFixed(1)}m
+   </text>
+  `;
  }
 
- const nominal=data.map((d,i)=>`${x(i)},${y(d.ending)}`).join(" ");
- const real=data.map((d,i)=>`${x(i)},${y(d.real)}`).join(" ");
+ const nominal=
+  data.map(
+   (d,i)=>
+    `${x(i)},${y(d.ending)}`
+  ).join(" ");
+
+ const real=
+  data.map(
+   (d,i)=>
+    `${x(i)},${y(d.real)}`
+  ).join(" ");
 
  html+=`
- <polyline points="${nominal}" fill="none"
- stroke="#59a5ff" stroke-width="4" stroke-linejoin="round"/>
- <polyline points="${real}" fill="none"
- stroke="#34c98f" stroke-width="3" stroke-dasharray="8 6"
- stroke-linejoin="round"/>`;
+  <polyline
+   points="${nominal}"
+   fill="none"
+   stroke="#59a5ff"
+   stroke-width="4"
+   stroke-linejoin="round"
+  />
+
+  <polyline
+   points="${real}"
+   fill="none"
+   stroke="#34c98f"
+   stroke-width="3"
+   stroke-dasharray="8 6"
+   stroke-linejoin="round"
+  />
+ `;
 
  data.forEach((d,i)=>{
-  html+=`<circle cx="${x(i)}" cy="${y(d.ending)}" r="3" fill="#59a5ff"/>`;
 
-  if(i===0 || i===data.length-1 || i%5===0){
+  html+=`
+   <circle
+    cx="${x(i)}"
+    cy="${y(d.ending)}"
+    r="3"
+    fill="#59a5ff"
+   />
+  `;
+
+  if(
+   i===0 ||
+   i===data.length-1 ||
+   i%5===0
+  ){
+
    html+=`
-   <text x="${x(i)}" y="${H-16}" text-anchor="middle"
-   fill="#8996a6" font-size="11">${d.year}</text>`;
+    <text
+     x="${x(i)}"
+     y="${H-16}"
+     text-anchor="middle"
+     fill="#8996a6"
+     font-size="11"
+    >
+     ${d.year}
+    </text>
+   `;
   }
  });
 
  svg.innerHTML=html;
 }
 
-document.querySelectorAll(".strategy").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  document.querySelectorAll(".strategy").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  mode=btn.dataset.mode;
-  custom=false;
-  setDefaults();
- });
-});
+document
+ .querySelectorAll(".strategy")
+ .forEach(btn=>{
 
-$("capital").addEventListener("input",()=>{
- $("capitalFormatted").textContent=fmt(Number($("capital").value)||0);
-});
+  btn.addEventListener(
+   "click",
+   ()=>{
 
-$("monthly").addEventListener("input",()=>{
- custom=true;
- $("monthlyFormatted").textContent=fmt(Number($("monthly").value)||0)+" per month";
- calculate();
-});
+    document
+     .querySelectorAll(".strategy")
+     .forEach(
+      b=>b.classList.remove("active")
+     );
 
-$("escalate").addEventListener("change",()=>{
- custom=true;
- calculate();
-});
+    btn.classList.add("active");
 
-["capital","yield","inflation","years"].forEach(id=>{
- $(id).addEventListener("change",()=>{
-  if(custom) calculate();
-  else setDefaults();
- });
-});
+    mode=btn.dataset.mode;
 
-$("apply").addEventListener("click",calculate);
-$("reset").addEventListener("click",setDefaults);
-$("print").addEventListener("click",()=>window.print());
+    custom=false;
 
-$("csv").addEventListener("click",()=>{
- if(!lastRows.length)return;
-
- let csv="Year,Opening Capital,Monthly Income,Annual Income,Ending Capital,Real Capital\n";
-
- lastRows.forEach(r=>{
-  csv+=`${r.year},${Math.round(r.opening)},${Math.round(r.monthly)},${Math.round(r.paid)},${Math.round(r.ending)},${Math.round(r.real)}\n`;
+    setDefaults();
+   }
+  );
  });
 
- const blob=new Blob([csv],{type:"text/csv"});
- const url=URL.createObjectURL(blob);
- const a=document.createElement("a");
+$("capital")
+ .addEventListener(
+  "input",
+  ()=>{
 
- a.href=url;
- a.download="passive-income-projection-v2.csv";
- document.body.appendChild(a);
- a.click();
- a.remove();
+   $("capitalFormatted").textContent=
+    fmt(
+     Number($("capital").value)||0
+    );
+  }
+ );
 
- setTimeout(()=>URL.revokeObjectURL(url),1000);
+$("monthly")
+ .addEventListener(
+  "input",
+  ()=>{
+
+   custom=true;
+
+   $("monthlyFormatted").textContent=
+    fmt(
+     Number($("monthly").value)||0
+    )+" per month";
+
+   calculate();
+  }
+ );
+
+$("escalate")
+ .addEventListener(
+  "change",
+  ()=>{
+
+   custom=true;
+
+   calculate();
+  }
+ );
+
+[
+ "capital",
+ "yield",
+ "inflation",
+ "years"
+].forEach(id=>{
+
+ $(id).addEventListener(
+  "change",
+  ()=>{
+
+   if(custom){
+    calculate();
+   }else{
+    setDefaults();
+   }
+  }
+ );
 });
+
+$("apply")
+ .addEventListener(
+  "click",
+  calculate
+ );
+
+$("reset")
+ .addEventListener(
+  "click",
+  setDefaults
+ );
+
+$("print")
+ .addEventListener(
+  "click",
+  ()=>window.print()
+ );
+
+$("csv")
+ .addEventListener(
+  "click",
+  ()=>{
+
+   if(!lastRows.length){
+    return;
+   }
+
+   let csv=
+    "Year,Opening Capital,Monthly Income,Annual Income,Ending Nominal Capital,Purchasing Power\n";
+
+   lastRows.forEach(r=>{
+
+    csv+=
+     `${r.year},`+
+     `${Math.round(r.opening)},`+
+     `${Math.round(r.monthly)},`+
+     `${Math.round(r.paid)},`+
+     `${Math.round(r.ending)},`+
+     `${Math.round(r.real)}\n`;
+   });
+
+   const blob=
+    new Blob(
+     [csv],
+     {type:"text/csv"}
+    );
+
+   const url=
+    URL.createObjectURL(blob);
+
+   const a=
+    document.createElement("a");
+
+   a.href=url;
+I'm
+   a.download=
+    "passive-income-projection.csv";
+
+   document.body.appendChild(a);
+
+   a.click();
+
+   a.remove();
+
+   setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    1000
+   );
+  }
+ );
 
 setDefaults();
 
