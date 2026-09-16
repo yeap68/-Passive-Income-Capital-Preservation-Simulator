@@ -21,9 +21,7 @@
   --red:#ff6b6b;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
   background:var(--bg);
@@ -32,42 +30,135 @@ html{
 
 body{
   margin:0;
-  background:var(--bg);
+  background:
+    radial-gradient(circle at top right,#102033 0,transparent 28%),
+    var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   line-height:1.45;
 }
 
-.wrap{
-  width:min(960px,100%);
+.container{
+  width:min(1120px,100%);
   margin:auto;
-  padding:32px 22px 70px;
+  padding:34px 18px 70px;
 }
 
 h1{
-  margin:0 0 10px;
-  font-size:clamp(32px,6vw,48px);
+  font-size:clamp(30px,6vw,50px);
   line-height:1.08;
+  margin:0 0 12px;
 }
 
 .subtitle{
   color:var(--muted);
-  font-size:18px;
-  margin:0 0 30px;
+  font-size:clamp(16px,3.8vw,21px);
+  max-width:880px;
+  margin-bottom:26px;
 }
 
-.panel{
-  background:var(--panel);
+.section{
+  background:rgba(17,23,32,.96);
   border:1px solid var(--border);
   border-radius:24px;
   padding:28px;
-  margin:0 0 26px;
+  margin-bottom:28px;
 }
 
 h2{
-  margin:0 0 24px;
-  font-size:30px;
+  font-size:clamp(27px,5.5vw,40px);
+  line-height:1.15;
+  margin:0 0 28px;
 }
+
+/* MARKET REFERENCE */
+
+.market-panel{
+  background:
+    linear-gradient(135deg,rgba(77,141,247,.11),rgba(52,201,143,.05)),
+    var(--panel);
+  border:1px solid #34445a;
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:28px;
+}
+
+.market-title{
+  color:#8db7ff;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  margin-bottom:17px;
+}
+
+.market-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.market-item{
+  background:#0d141e;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:17px;
+}
+
+.market-label{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.market-value{
+  font-size:25px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.market-source{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.market-divider{
+  border-top:1px solid var(--border);
+  margin:19px 0;
+}
+
+.assumption-title{
+  color:#9bdcbc;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.market-assumptions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 20px;
+}
+
+.market-assumption{
+  color:var(--muted);
+  font-size:15px;
+}
+
+.market-assumption strong{
+  color:var(--text);
+}
+
+.market-explanation{
+  margin:16px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* STRATEGIES */
 
 .strategy-grid{
   display:grid;
@@ -76,36 +167,34 @@ h2{
 }
 
 .strategy{
-  appearance:none;
-  -webkit-appearance:none;
   width:100%;
   text-align:left;
-  padding:24px;
-  min-height:180px;
+  border:2px solid var(--border);
   background:var(--card);
   color:var(--text);
-  border:2px solid var(--border);
-  border-radius:20px;
+  padding:24px;
+  border-radius:22px;
   cursor:pointer;
-  font:inherit;
 }
 
 .strategy.active{
   border-color:var(--blue);
-  background:#172b49;
+  background:#1c365d;
   box-shadow:0 0 0 1px var(--blue);
 }
 
-.strategy strong{
-  display:block;
-  font-size:20px;
+.strategy-title{
+  font-size:23px;
+  font-weight:750;
   margin-bottom:10px;
 }
 
-.strategy span{
+.strategy-desc{
   color:var(--muted);
-  font-size:16px;
+  font-size:17px;
 }
+
+/* FORM */
 
 .form-grid{
   display:grid;
@@ -117,23 +206,23 @@ h2{
   grid-column:1/-1;
 }
 
-label{
+label,
+.field-title{
   display:block;
   color:var(--muted);
-  font-size:17px;
-  margin:0 0 9px;
+  font-size:18px;
+  margin-bottom:10px;
 }
 
 input,
 select{
   width:100%;
-  height:62px;
-  border-radius:16px;
-  border:1px solid var(--border);
   background:#0d121a;
   color:var(--text);
-  padding:0 18px;
-  font-size:21px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px 20px;
+  font-size:22px;
   outline:none;
 }
 
@@ -144,59 +233,51 @@ select:focus{
 
 .helper{
   color:var(--muted);
-  margin-top:7px;
+  margin-top:8px;
   font-size:16px;
 }
 
-.checkbox-block{
-  margin-top:5px;
-}
-
-.checkrow{
+.check-wrap{
   display:flex;
+  gap:16px;
   align-items:flex-start;
-  gap:14px;
+  padding-top:4px;
+}
+
+.check-wrap input{
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  margin:4px 0 0;
+  accent-color:#62b5ff;
+}
+
+.check-label{
   color:var(--text);
-  font-size:17px;
+  font-size:19px;
 }
 
-.checkrow input{
-  width:28px;
-  height:28px;
-  flex:none;
-  accent-color:var(--blue);
-  margin-top:2px;
-}
-
-.check-description{
+.check-note{
   color:var(--muted);
-  font-size:14px;
-  margin:8px 0 0 42px;
-  max-width:650px;
+  font-size:15px;
+  margin:8px 0 0 43px;
 }
 
-.actions{
+.button-row{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
-  margin-top:22px;
+  margin-top:25px;
 }
 
 button.action{
-  appearance:none;
-  -webkit-appearance:none;
   border:1px solid var(--border);
-  border-radius:15px;
-  padding:15px 22px;
-  color:var(--text);
   background:#1a2432;
-  font-size:17px;
+  color:var(--text);
+  border-radius:16px;
+  padding:15px 21px;
+  font-size:18px;
   cursor:pointer;
-}
-
-button.action:active,
-.strategy:active{
-  transform:translateY(1px);
 }
 
 button.primary{
@@ -204,163 +285,137 @@ button.primary{
   border-color:var(--blue);
 }
 
-/* =========================================================
-   PROJECTION ASSUMPTION STRIP
-========================================================= */
+/* PROJECTION */
 
-.projection-assumptions{
-  background:#121c28;
-  border:1px solid #34465b;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
+.projection-head{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:24px;
 }
 
-.projection-assumptions-title{
-  font-size:17px;
-  font-weight:750;
-  margin-bottom:13px;
+.projection-head h2{
+  margin-bottom:0;
 }
 
-.assumption-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.assumption-pills{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
 }
 
-.assumption-card{
-  background:#172331;
-  border:1px solid #34465b;
-  border-radius:15px;
-  padding:15px 16px;
-}
-
-.assumption-label{
+.pill{
+  border:1px solid var(--border);
+  background:#0d141e;
+  border-radius:999px;
+  padding:9px 13px;
   color:var(--muted);
   font-size:14px;
-  margin-bottom:4px;
-}
-
-.assumption-value{
-  font-size:23px;
-  font-weight:800;
-  line-height:1.15;
   white-space:nowrap;
 }
 
-.assumption-note{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:5px;
+.pill strong{
+  color:var(--text);
 }
-
-/* =========================================================
-   PROJECTION METRICS
-========================================================= */
 
 .metrics{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
+  gap:14px;
 }
 
 .metric{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:18px;
+  border-radius:20px;
   padding:20px;
-  min-height:125px;
+  min-width:0;
   overflow:hidden;
 }
 
-.metric .name{
+.metric-label{
   color:var(--muted);
-  font-size:15px;
-  margin-bottom:8px;
+  font-size:16px;
+  min-height:46px;
 }
 
-.metric .value{
-  font-size:22px;
-  font-weight:780;
-  line-height:1.15;
+.metric-value{
+  font-size:clamp(21px,3vw,30px);
+  font-weight:800;
+  margin-top:8px;
   white-space:nowrap;
-  letter-spacing:-0.4px;
+  letter-spacing:-.5px;
 }
 
 .status{
   margin-top:18px;
-  padding:17px 20px;
-  border-radius:16px;
-  font-weight:750;
-  font-size:18px;
+  border-radius:18px;
+  padding:18px 20px;
+  font-size:22px;
+  font-weight:800;
   border:1px solid;
 }
 
 .status.good{
-  color:#9af0cd;
+  color:#91edc8;
   background:rgba(52,201,143,.12);
-  border-color:rgba(52,201,143,.55);
+  border-color:#2d9e74;
 }
 
 .status.warn{
-  color:#ffd09c;
+  color:#ffc98d;
   background:rgba(242,166,90,.12);
-  border-color:rgba(242,166,90,.55);
+  border-color:#a96c31;
 }
 
 .status.bad{
-  color:#ffabab;
+  color:#ff9c9c;
   background:rgba(255,107,107,.12);
-  border-color:rgba(255,107,107,.55);
+  border-color:#b84b4b;
 }
 
-.explain{
+.status-text{
   color:var(--muted);
-  margin:14px 0 0;
-  font-size:16px;
+  margin:15px 0 0;
+  font-size:17px;
 }
 
-/* =========================================================
-   CHART
-========================================================= */
+/* CHART */
 
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:18px;
-  margin-bottom:14px;
-  color:var(--muted);
-  font-size:15px;
-}
-
-.legend span{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  display:inline-block;
-}
-
-.chartbox{
+.chart-wrap{
   width:100%;
   overflow:hidden;
 }
 
 #chart{
   width:100%;
-  height:auto;
-  min-height:270px;
-  display:block;
+  min-height:300px;
 }
 
-/* =========================================================
-   TABLE
-========================================================= */
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  color:var(--muted);
+  margin-top:10px;
+  font-size:14px;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
+
+/* TABLE */
 
 .table-wrap{
   overflow-x:auto;
@@ -369,16 +424,25 @@ button.primary{
 
 table{
   width:100%;
-  min-width:760px;
+  min-width:850px;
   border-collapse:collapse;
 }
 
 th,
 td{
-  text-align:right;
-  padding:13px 10px;
   border-bottom:1px solid var(--border);
+  padding:15px 12px;
+  text-align:right;
   white-space:nowrap;
+}
+
+th{
+  color:var(--muted);
+  font-size:15px;
+}
+
+td{
+  font-size:16px;
 }
 
 th:first-child,
@@ -386,14 +450,7 @@ td:first-child{
   text-align:left;
 }
 
-th{
-  color:var(--muted);
-  font-weight:600;
-}
-
-/* =========================================================
-   METHODOLOGY / REFERENCES
-========================================================= */
+/* METHODOLOGY */
 
 details{
   border-top:1px solid var(--border);
@@ -406,68 +463,46 @@ details:first-of-type{
 
 summary{
   cursor:pointer;
-  font-weight:700;
-  font-size:18px;
+  font-weight:750;
+  font-size:19px;
 }
 
 details p{
   color:var(--muted);
-}
-
-.small{
-  color:var(--muted);
-  font-size:14px;
-}
-
-a{
-  color:#80adff;
-}
-
-.reference-list{
-  display:grid;
-  gap:14px;
+  font-size:16px;
 }
 
 .reference{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px;
-}
-
-.reference strong{
-  display:block;
-  margin-bottom:6px;
-}
-
-.reference p{
-  margin:0 0 8px;
   color:var(--muted);
+  font-size:15px;
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+.reference a{
+  color:#7eb1ff;
+}
+
+.footer{
+  color:#6f7b89;
+  font-size:13px;
+  text-align:center;
+  margin-top:30px;
+}
 
 @media(max-width:760px){
 
-  .wrap{
-    padding:24px 18px 55px;
+  .container{
+    padding:25px 14px 55px;
   }
 
-  .panel{
-    padding:22px 18px;
+  .section{
+    padding:22px 17px;
+    border-radius:22px;
   }
 
-  .strategy-grid{
-    grid-template-columns:1fr;
-  }
-
-  .strategy{
-    min-height:0;
-  }
-
-  .form-grid{
+  .strategy-grid,
+  .form-grid,
+  .market-grid,
+  .market-assumptions{
     grid-template-columns:1fr;
   }
 
@@ -475,598 +510,562 @@ a{
     grid-column:auto;
   }
 
-  .metrics{
-    grid-template-columns:1fr 1fr;
+  .strategy{
+    padding:22px;
   }
-}
-
-@media(max-width:430px){
 
   .metrics{
     grid-template-columns:1fr 1fr;
-    gap:12px;
+    gap:10px;
   }
 
   .metric{
-    padding:17px 14px;
-    min-height:125px;
+    padding:16px 12px;
   }
 
-  .metric .name{
+  .metric-label{
     font-size:14px;
+    min-height:42px;
   }
 
-  .metric .value{
-    font-size:clamp(17px,5vw,21px);
-    letter-spacing:-0.6px;
+  .metric-value{
+    font-size:clamp(18px,4.8vw,24px);
   }
 
-  .assumption-card{
-    padding:13px;
+  .projection-head{
+    display:block;
   }
 
-  .assumption-value{
-    font-size:21px;
-  }
-
-  h2{
-    font-size:26px;
+  .assumption-pills{
+    margin-top:16px;
   }
 }
 
-@media(max-width:360px){
-
-  .metric .value{
-    font-size:16px;
-  }
-
-  .metric{
-    padding:15px 10px;
+@media(max-width:380px){
+  .metric-value{
+    font-size:17px;
   }
 }
-
-/* =========================================================
-   PRINT
-========================================================= */
 
 @media print{
 
   body{
-    background:#fff;
-    color:#000;
+    background:white;
+    color:black;
   }
 
-  .wrap{
+  .container{
     width:100%;
-    padding:0;
   }
 
-  .panel,
+  .section,
   .metric,
-  .reference,
-  .projection-assumptions,
-  .assumption-card{
-    background:#fff;
-    color:#000;
+  .market-panel,
+  .market-item{
+    background:white;
+    color:black;
     border-color:#bbb;
   }
 
-  .subtitle,
-  .helper,
-  label,
-  .metric .name,
-  .explain,
-  .small,
-  .legend,
-  details p,
-  th,
-  .reference p,
-  .assumption-label,
-  .assumption-note{
-    color:#555;
+  .button-row{
+    display:none;
   }
 
-  .actions,
-  .strategy-grid{
-    display:none;
+  .metric-label,
+  .subtitle,
+  .status-text,
+  .reference,
+  details p,
+  .market-label,
+  .market-source,
+  .market-explanation,
+  .market-assumption{
+    color:#444;
   }
 }
 </style>
 </head>
 
-<body>
+<body onload="initializeSimulator()">
 
-<div class="wrap">
+<div class="container">
 
-<header>
+<h1>Passive Income &amp; Capital Preservation Simulator</h1>
 
-  <h1>
-    Passive Income & Capital Preservation Simulator
-  </h1>
+<div class="subtitle">
+  Model the trade-off between sustainable distributions, nominal capital
+  preservation and inflation-adjusted purchasing power.
+</div>
 
-  <p class="subtitle">
-    Model the trade-off between passive distributions,
-    nominal capital preservation and inflation-adjusted
-    purchasing power.
+
+<!-- MARKET REFERENCE -->
+
+<div class="market-panel">
+
+  <div class="market-title">
+    Market reference
+  </div>
+
+  <div class="market-grid">
+
+    <div class="market-item">
+
+      <div class="market-label">
+        10Y MGS benchmark yield
+      </div>
+
+      <div class="market-value">
+        4.17%
+      </div>
+
+      <div class="market-source">
+        BNM close · 15 Sep 2026
+      </div>
+
+    </div>
+
+
+    <div class="market-item">
+
+      <div class="market-label">
+        Latest Malaysia CPI inflation YoY
+      </div>
+
+      <div class="market-value">
+        1.80%
+      </div>
+
+      <div class="market-source">
+        DOSM · Jul 2026
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="market-divider"></div>
+
+
+  <div class="assumption-title">
+    Simulation assumptions
+  </div>
+
+
+  <div class="market-assumptions">
+
+    <div class="market-assumption">
+      Expected return:
+      <strong>4.17%</strong>
+      — initially referenced to the 10Y MGS benchmark yield
+    </div>
+
+    <div class="market-assumption">
+      Long-term average inflation:
+      <strong>3.00%</strong>
+      — planning assumption
+    </div>
+
+  </div>
+
+
+  <p class="market-explanation">
+    Market reference figures describe current conditions. Simulation
+    assumptions are forward-looking planning inputs and remain constant
+    over the selected projection period unless changed by the user.
   </p>
 
-</header>
+</div>
 
 
-<!-- =========================================================
-     1. STRATEGY
-========================================================= -->
+<!-- STRATEGY -->
 
-<section class="panel">
+<section class="section">
 
 <h2>1. Choose your strategy</h2>
 
 <div class="strategy-grid">
 
-  <button
-    type="button"
-    id="strategyMax"
-    class="strategy active"
-    onclick="chooseStrategy('max')">
+<button
+  type="button"
+  id="strategy-max"
+  class="strategy active"
+  onclick="selectStrategy('max')">
 
-    <strong>
-      Maximum Income
-    </strong>
+  <div class="strategy-title">
+    Maximum Distribution
+  </div>
 
-    <span>
-      Maximise current distributions while targeting
-      preservation of starting nominal capital.
-    </span>
+  <div class="strategy-desc">
+    Maximise current distributions while targeting preservation
+    of starting nominal capital.
+  </div>
 
-  </button>
-
-
-  <button
-    type="button"
-    id="strategyReal"
-    class="strategy"
-    onclick="chooseStrategy('real')">
-
-    <strong>
-      Preserve Real Capital
-    </strong>
-
-    <span>
-      Calculate a distribution level designed to preserve
-      the purchasing power of starting capital over the
-      selected horizon.
-    </span>
-
-  </button>
+</button>
 
 
-  <button
-    type="button"
-    id="strategyBalanced"
-    class="strategy"
-    onclick="chooseStrategy('balanced')">
+<button
+  type="button"
+  id="strategy-real"
+  class="strategy"
+  onclick="selectStrategy('real')">
 
-    <strong>
-      Balanced
-    </strong>
+  <div class="strategy-title">
+    Preserve Real Capital
+  </div>
 
-    <span>
-      Generate meaningful distributions while retaining
-      part of portfolio return for capital growth.
-    </span>
+  <div class="strategy-desc">
+    Calculate a distribution level designed to preserve the
+    purchasing power of starting capital over the selected horizon.
+  </div>
 
-  </button>
+</button>
+
+
+<button
+  type="button"
+  id="strategy-balanced"
+  class="strategy"
+  onclick="selectStrategy('balanced')">
+
+  <div class="strategy-title">
+    Balanced
+  </div>
+
+  <div class="strategy-desc">
+    Generate meaningful distributions while retaining part of
+    portfolio return for capital growth.
+  </div>
+
+</button>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     2. ASSUMPTIONS
-========================================================= -->
+<!-- ASSUMPTIONS -->
 
-<section class="panel">
+<section class="section">
 
 <h2>2. Set your assumptions</h2>
 
 <div class="form-grid">
 
 
-<div class="field full">
+<div class="field">
 
-  <label for="capital">
-    Initial capital (RM)
-  </label>
+<label for="capital">
+  Initial capital (RM)
+</label>
 
-  <input
-    id="capital"
-    type="text"
-    inputmode="decimal"
-    value="1,000,000.00"
-    autocomplete="off"
-    onfocus="moneyFocus(this)"
-    onblur="moneyBlur(this)">
+<input
+  id="capital"
+  type="text"
+  inputmode="decimal"
+  value="1,000,000.00"
+  autocomplete="off"
+  oninput="markAssumptionsDirty()"
+  onfocus="moneyFocus(this)"
+  onblur="moneyBlur(this)">
 
-  <div
-    class="helper"
-    id="capitalHelper">
-    RM1,000,000
-  </div>
+<div
+  class="helper"
+  id="capitalHelper">
+  RM1,000,000
+</div>
 
 </div>
 
 
 <div class="field">
 
-  <label for="rate">
-    Expected annual portfolio return
-  </label>
+<label for="rate">
+  Expected annual portfolio return
+</label>
 
-  <select id="rate">
+<select
+  id="rate"
+  onchange="markAssumptionsDirty()">
 
-    <option value="0.0200">
-      2.00% — severe stress
-    </option>
+<option value="0.0300">3.00%</option>
+<option value="0.0350">3.50%</option>
+<option value="0.0400">4.00%</option>
 
-    <option value="0.0250">
-      2.50%
-    </option>
+<option value="0.0417" selected>
+  4.17% — 10Y MGS reference
+</option>
 
-    <option value="0.0300">
-      3.00%
-    </option>
+<option value="0.0450">4.50%</option>
+<option value="0.0500">5.00%</option>
+<option value="0.0600">6.00%</option>
 
-    <option value="0.0350">
-      3.50%
-    </option>
+</select>
 
-    <option value="0.0390">
-      3.90%
-    </option>
-
-    <option value="0.0414">
-      4.14%
-    </option>
-
-    <option value="0.0417" selected>
-      4.17% — 10Y MGS reference
-    </option>
-
-    <option value="0.0450">
-      4.50%
-    </option>
-
-    <option value="0.0500">
-      5.00%
-    </option>
-
-    <option value="0.0600">
-      6.00%
-    </option>
-
-  </select>
+<div class="helper">
+  Current default is referenced to the 10Y MGS benchmark yield shown above.
+</div>
 
 </div>
 
 
 <div class="field">
 
-  <label for="inflation">
-    Annual inflation assumption
-  </label>
+<label for="inflation">
+  Long-term average inflation assumption
+</label>
 
-  <select id="inflation">
+<select
+  id="inflation"
+  onchange="markAssumptionsDirty()">
 
-    <option value="0.0100">
-      1.00%
-    </option>
+<option value="0.015">1.50%</option>
+<option value="0.018">1.80%</option>
+<option value="0.020">2.00%</option>
+<option value="0.025">2.50%</option>
 
-    <option value="0.0180">
-      1.80% — recent CPI reference
-    </option>
+<option value="0.030" selected>
+  3.00% — planning base
+</option>
 
-    <option value="0.0200">
-      2.00%
-    </option>
+<option value="0.035">3.50%</option>
+<option value="0.040">4.00%</option>
+<option value="0.050">5.00%</option>
 
-    <option value="0.0250">
-      2.50%
-    </option>
+</select>
 
-    <option value="0.0300" selected>
-      3.00% — planning base
-    </option>
-
-    <option value="0.0400">
-      4.00%
-    </option>
-
-    <option value="0.0500">
-      5.00%
-    </option>
-
-    <option value="0.0600">
-      6.00%
-    </option>
-
-  </select>
+<div class="helper">
+  This is an assumed compound average over the projection period,
+  not a forecast that inflation will be identical every year.
+</div>
 
 </div>
 
 
 <div class="field">
 
-  <label for="years">
-    Planning horizon
-  </label>
+<label for="years">
+  Planning horizon
+</label>
 
-  <select id="years">
+<select
+  id="years"
+  onchange="markAssumptionsDirty()">
 
-    <option value="5">
-      5 years
-    </option>
+<option value="5">5 years</option>
+<option value="10" selected>10 years</option>
+<option value="15">15 years</option>
+<option value="20">20 years</option>
+<option value="25">25 years</option>
+<option value="30">30 years</option>
 
-    <option value="10" selected>
-      10 years
-    </option>
-
-    <option value="15">
-      15 years
-    </option>
-
-    <option value="20">
-      20 years
-    </option>
-
-    <option value="25">
-      25 years
-    </option>
-
-    <option value="30">
-      30 years
-    </option>
-
-  </select>
-
-</div>
-
-
-<div class="field">
-
-  <label for="monthly">
-    Starting monthly distribution (RM)
-  </label>
-
-  <input
-    id="monthly"
-    type="text"
-    inputmode="decimal"
-    value="3,410.30"
-    autocomplete="off"
-    onfocus="moneyFocus(this)"
-    onblur="moneyBlur(this)">
-
-  <div
-    class="helper"
-    id="monthlyHelper">
-    RM3,410.30 per month
-  </div>
+</select>
 
 </div>
 
 
 <div class="field full">
 
-  <label>
-    Distribution treatment
-  </label>
+<label for="monthly">
+  Starting monthly distribution (RM)
+</label>
 
-  <div class="checkbox-block">
+<input
+  id="monthly"
+  type="text"
+  inputmode="decimal"
+  value="3,410.30"
+  autocomplete="off"
+  oninput="markMonthlyManual()"
+  onfocus="moneyFocus(this)"
+  onblur="moneyBlur(this)">
 
-    <div class="checkrow">
-
-      <input
-        id="escalate"
-        type="checkbox">
-
-      <span>
-        Maintain the purchasing power of my monthly distribution
-      </span>
-
-    </div>
-
-    <div class="check-description">
-      Increase the monthly distribution annually by the selected
-      inflation rate. This may accelerate capital depletion.
-    </div>
-
-  </div>
-
-
-  <div class="actions">
-
-    <button
-      type="button"
-      class="action primary"
-      onclick="recalculate()">
-
-      Recalculate
-
-    </button>
-
-
-    <button
-      type="button"
-      class="action"
-      onclick="resetStrategyDefaults()">
-
-      Reset strategy defaults
-
-    </button>
-
-  </div>
+<div
+  class="helper"
+  id="monthlyHelper">
+  RM3,410.30 per month
+</div>
 
 </div>
+
+
+<div class="field full">
+
+<div class="field-title">
+  Distribution treatment
+</div>
+
+<div class="check-wrap">
+
+<input
+  id="escalate"
+  type="checkbox"
+  onchange="markTreatmentDirty()">
+
+<label
+  class="check-label"
+  for="escalate">
+
+  Maintain the purchasing power of my monthly distribution
+
+</label>
+
+</div>
+
+<div class="check-note">
+  Increase the monthly distribution annually by the selected inflation
+  rate. This may accelerate capital depletion.
+</div>
+
+</div>
+
+</div>
+
+
+<div class="button-row">
+
+<button
+  type="button"
+  class="action primary"
+  onclick="recalculate()">
+
+  Recalculate
+
+</button>
+
+
+<button
+  type="button"
+  class="action"
+  onclick="resetStrategyDefaults()">
+
+  Reset strategy defaults
+
+</button>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     3. PROJECTION
-========================================================= -->
+<!-- PROJECTION -->
 
-<section class="panel">
+<section class="section">
+
+<div class="projection-head">
 
 <h2>3. Projection</h2>
 
+<div class="assumption-pills">
 
-<div class="projection-assumptions">
+<div class="pill">
+  Return
+  <strong id="projectionReturn">4.17%</strong>
+</div>
 
-  <div class="projection-assumptions-title">
-    Key assumptions
-  </div>
+<div class="pill">
+  Inflation
+  <strong id="projectionInflation">3.00%</strong>
+</div>
 
+<div class="pill">
+  Horizon
+  <strong id="projectionYears">10 years</strong>
+</div>
 
-  <div class="assumption-grid">
-
-    <div class="assumption-card">
-
-      <div class="assumption-label">
-        Expected annual return
-      </div>
-
-      <div
-        class="assumption-value"
-        id="projectionRate">
-        4.17%
-      </div>
-
-      <div
-        class="assumption-note"
-        id="projectionRateNote">
-        10Y MGS reference
-      </div>
-
-    </div>
-
-
-    <div class="assumption-card">
-
-      <div class="assumption-label">
-        Inflation rate
-      </div>
-
-      <div
-        class="assumption-value"
-        id="projectionInflation">
-        3.00%
-      </div>
-
-      <div
-        class="assumption-note"
-        id="projectionInflationNote">
-        planning base
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
 <div class="metrics">
 
-
 <div class="metric">
 
-  <div class="name">
-    Initial capital
-  </div>
+<div class="metric-label">
+  Initial capital
+</div>
 
-  <div
-    class="value"
-    id="mInitial">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="initialMetric">
+  RM1,000,000
+</div>
 
 </div>
 
 
 <div class="metric">
 
-  <div class="name">
-    Starting monthly distribution
-  </div>
+<div class="metric-label">
+  Starting monthly distribution
+</div>
 
-  <div
-    class="value"
-    id="mMonthly">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="monthlyMetric">
+  RM3,410
+</div>
 
 </div>
 
 
 <div class="metric">
 
-  <div class="name">
-    Ending capital — nominal
-  </div>
+<div class="metric-label">
+  Ending capital — nominal
+</div>
 
-  <div
-    class="value"
-    id="mEnding">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="endingMetric">
+  RM1,000,000
+</div>
 
 </div>
 
 
 <div class="metric">
 
-  <div class="name">
-    Ending purchasing power — today's RM
-  </div>
+<div class="metric-label">
+  Ending purchasing power — today's RM
+</div>
 
-  <div
-    class="value"
-    id="mReal">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="realMetric">
+  RM744,094
+</div>
 
 </div>
 
 
 <div class="metric">
 
-  <div class="name">
-    Total distributions
-  </div>
+<div class="metric-label">
+  Total distributions
+</div>
 
-  <div
-    class="value"
-    id="mTotal">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="totalMetric">
+  RM409,236
+</div>
 
 </div>
 
 
 <div class="metric">
 
-  <div class="name">
-    Monthly distribution in final year
-  </div>
+<div class="metric-label">
+  Monthly distribution in final year
+</div>
 
-  <div
-    class="value"
-    id="mFinalMonthly">
-    —
-  </div>
+<div
+  class="metric-value"
+  id="finalMonthlyMetric">
+  RM3,410
+</div>
 
 </div>
 
@@ -1074,76 +1073,59 @@ a{
 
 
 <div
-  id="status"
+  id="statusBox"
   class="status warn">
-  Calculating…
+  Nominal capital preserved
 </div>
-
 
 <p
   id="statusText"
-  class="explain">
+  class="status-text">
+
+  The portfolio approximately preserves its ringgit balance,
+  but inflation reduces its purchasing power over time.
+
 </p>
 
 </section>
 
 
-<!-- =========================================================
-     4. CHART
-========================================================= -->
+<!-- CHART -->
 
-<section class="panel">
+<section class="section">
 
 <h2>4. Capital path</h2>
 
-<div class="legend">
-
-  <span>
-    <i
-      class="dot"
-      style="background:#4d8df7">
-    </i>
-    Nominal capital
-  </span>
-
-  <span>
-    <i
-      class="dot"
-      style="background:#34c98f">
-    </i>
-    Purchasing power in today's RM
-  </span>
-
-  <span>
-    <i
-      class="dot"
-      style="background:#f2a65a">
-    </i>
-    Starting real-capital level
-  </span>
-
+<div class="chart-wrap">
+  <div id="chart"></div>
 </div>
 
+<div class="legend">
 
-<div class="chartbox">
+<div class="legend-item">
+<span
+  class="dot"
+  style="background:#4d8df7">
+</span>
+Nominal capital
+</div>
 
-  <svg
-    id="chart"
-    viewBox="0 0 800 360"
-    role="img"
-    aria-label="Projected nominal and real capital">
-  </svg>
+<div class="legend-item">
+<span
+  class="dot"
+  style="background:#34c98f">
+</span>
+Capital in today's RM
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     5. YEAR-BY-YEAR
-========================================================= -->
+<!-- TABLE -->
 
-<section class="panel">
+<section class="section">
 
 <h2>5. Year-by-year projection</h2>
 
@@ -1154,73 +1136,43 @@ a{
 <thead>
 
 <tr>
-
-  <th>
-    Year
-  </th>
-
-  <th>
-    Opening capital
-  </th>
-
-  <th>
-    Distributions
-  </th>
-
-  <th>
-    Ending capital
-  </th>
-
-  <th>
-    Today's RM
-  </th>
-
-  <th>
-    Monthly distribution
-  </th>
-
+<th>Year</th>
+<th>Ending capital</th>
+<th>Capital in today's RM</th>
+<th>Monthly distribution</th>
+<th>Distribution in today's RM</th>
 </tr>
 
 </thead>
 
-
-<tbody id="projectionRows">
-</tbody>
+<tbody id="projectionTable"></tbody>
 
 </table>
 
 </div>
 
 
-<div class="actions">
+<div class="button-row">
 
 <button
   type="button"
   class="action"
   onclick="exportCSV()">
-
   Export CSV
-
 </button>
-
 
 <button
   type="button"
   class="action"
   onclick="window.print()">
-
   Print / Save PDF
-
 </button>
-
 
 <button
   type="button"
   class="action"
   onclick="shareSimulator()">
-
   Share simulator
-
 </button>
 
 </div>
@@ -1228,40 +1180,35 @@ a{
 </section>
 
 
-<!-- =========================================================
-     6. ASSUMPTIONS & METHODOLOGY
-========================================================= -->
+<!-- METHODOLOGY -->
 
-<section class="panel">
+<section class="section">
 
-<h2>6. Assumptions & methodology</h2>
+<h2>6. Assumptions &amp; methodology</h2>
 
 
-<details open>
+<details>
 
 <summary>
-  How the calculation works
+  Market reference versus simulation assumptions
 </summary>
 
 <p>
-  The selected annual portfolio return is treated as an
-  effective annual total return and converted to an equivalent
-  monthly rate. Portfolio growth is credited monthly and the
-  selected distribution is deducted at the end of each month.
+  The market-reference figures provide context for current conditions.
+  The 10-year MGS benchmark yield is used as the initial reference for
+  the simulator's default return assumption.
 </p>
 
 <p>
-  Inflation is always applied when calculating the future
-  purchasing power of capital. The inflation assumption therefore
-  affects real capital even when the distribution-escalation
-  option is not selected.
+  Latest Malaysia CPI inflation YoY measures the change in consumer
+  prices compared with the same period one year earlier. It is not
+  automatically used as the long-term inflation assumption.
 </p>
 
 <p>
-  By default, monthly distributions remain constant in nominal
-  ringgit. If “Maintain the purchasing power of my monthly
-  distribution” is selected, the distribution increases once
-  each year by the selected inflation rate.
+  The long-term average inflation assumption represents an assumed
+  compound average over the selected projection horizon. Actual annual
+  inflation will vary.
 </p>
 
 </details>
@@ -1270,20 +1217,14 @@ a{
 <details>
 
 <summary>
-  Maximum Income
+  Maximum Distribution
 </summary>
 
 <p>
-  The default monthly distribution is the amount generated by
-  the equivalent monthly portfolio return on starting capital.
-  With distribution escalation switched off, this targets
-  preservation of starting nominal capital under the model's
-  constant-return assumptions.
-</p>
-
-<p>
-  Inflation still reduces the purchasing power of that nominal
-  capital and of a fixed monthly distribution over time.
+  The starting monthly distribution is calculated from the effective
+  monthly return implied by the selected annual portfolio return.
+  With distribution escalation switched off, the strategy targets
+  preservation of starting nominal ringgit capital.
 </p>
 
 </details>
@@ -1296,16 +1237,15 @@ a{
 </summary>
 
 <p>
-  The simulator solves for a starting monthly distribution that
-  targets an ending nominal portfolio equal to starting capital
-  compounded by the selected inflation rate over the planning
-  horizon.
+  The simulator calculates a starting distribution designed so that
+  ending nominal capital is sufficient to preserve the purchasing
+  power of the starting capital after applying the selected long-term
+  average inflation assumption.
 </p>
 
 <p>
-  This strategy is intended to preserve the purchasing power of
-  the capital itself. This is different from selecting the option
-  to maintain the purchasing power of monthly distributions.
+  The distribution-treatment checkbox separately determines whether
+  the monthly distribution itself increases annually with inflation.
 </p>
 
 </details>
@@ -1318,79 +1258,54 @@ a{
 </summary>
 
 <p>
-  The default Balanced distribution starts at 2.4% of initial
-  capital per year, divided into monthly distributions.
-</p>
-
-<p>
-  The objective is to provide meaningful distributions while
-  retaining a greater portion of expected portfolio return for
-  capital growth.
+  The default starting distribution is 2.4% of initial capital per
+  year, paid monthly. The remaining portfolio return is retained to
+  provide a balance between current distributions and capital growth.
 </p>
 
 </details>
 
 
-<details>
+<details open>
 
 <summary>
   Nominal versus real capital
 </summary>
 
 <p>
-  Nominal capital is the future ringgit balance. Real capital
-  converts that future balance into today's purchasing power
-  using the selected inflation assumption.
+  Nominal capital is the future ringgit balance. Real capital converts
+  that future balance into today's purchasing power using the selected
+  long-term average inflation assumption.
 </p>
 
 <p>
-  Preserving RM1 million nominally is therefore different from
-  preserving the purchasing power of RM1 million.
+  Preserving
+  <span id="methodCapital1">RM1,000,000</span>
+  nominally is therefore different from preserving the purchasing
+  power of
+  <span id="methodCapital2">RM1,000,000</span>.
 </p>
 
 </details>
 
 
-<details>
-
-<summary>
-  Maintaining distribution purchasing power
-</summary>
-
-<p>
-  A fixed nominal monthly distribution buys less over time when
-  prices rise. Selecting “Maintain the purchasing power of my
-  monthly distribution” increases the distribution annually by
-  the selected inflation rate.
-</p>
-
-<p>
-  This maintains approximately the same real spending power of
-  the distribution, but the larger future withdrawals may reduce
-  or eventually deplete capital more quickly.
-</p>
-
-</details>
-
-
-<details>
+<details open>
 
 <summary>
   Important MGS / GII limitation
 </summary>
 
 <p>
-  This simulator uses a portfolio total-return assumption.
-  Actual Malaysian Government Securities and Government
-  Investment Issues generally make semiannual coupon or profit
-  payments.
+  This simulator uses a portfolio total-return assumption. Actual
+  Malaysian Government Securities and Government Investment Issues
+  generally make semiannual coupon or profit payments.
 </p>
 
 <p>
-  Yield to maturity is not the same as the cash coupon or profit
-  rate. Purchase price, accrued interest, pull-to-par,
-  reinvestment rates and dealing spreads can therefore make
-  actual cash flows differ from this simplified monthly model.
+  Yield to maturity is not the same as the cash coupon or profit rate.
+  Purchase price, accrued interest, pull-to-par, reinvestment rates
+  and dealing spreads can therefore make actual cash flows differ
+  from this simplified monthly model.
 </p>
 
 </details>
@@ -1403,97 +1318,77 @@ a{
 </summary>
 
 <p>
-  The model does not include taxes, transaction costs, bank
-  spreads, custody fees, changes in future interest rates,
-  reinvestment risk, credit events or changes in inflation
-  through time.
+  The simulator does not model taxes, fees, bid-offer spreads,
+  individual bond maturities, reinvestment timing, credit events,
+  changes in interest rates, sequence-of-return risk or annual
+  fluctuations in inflation.
 </p>
 
 </details>
 
-
-<p class="small">
-  Planning tool only. Point-in-time MGS/GII yield and CPI
-  references are not automatically updated market data.
-</p>
-
 </section>
 
 
-<!-- =========================================================
-     7. REFERENCES
-========================================================= -->
+<!-- REFERENCES -->
 
-<section class="panel">
+<section class="section">
 
 <h2>7. Reference points</h2>
 
-<div class="reference-list">
-
-
-<div class="reference">
-
-<strong>
-  Bank Negara Malaysia — Benchmark Yields
-</strong>
-
-<p>
-  Reference source for Malaysian Government Securities and
-  Government Investment Issues benchmark yields.
+<p class="reference">
+  Malaysian Government Securities benchmark yield information:
+  <a
+    href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
+    target="_blank"
+    rel="noopener">
+    Bank Negara Malaysia
+  </a>
 </p>
 
-<a
-  href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
-  target="_blank"
-  rel="noopener noreferrer">
-
-  Open BNM benchmark yields
-
-</a>
-
-</div>
-
-
-<div class="reference">
-
-<strong>
-  Department of Statistics Malaysia — Consumer Price Index
-</strong>
-
-<p>
-  Reference source for Malaysian consumer-price inflation.
+<p class="reference">
+  Malaysian consumer price information:
+  <a
+    href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-july-2026"
+    target="_blank"
+    rel="noopener">
+    Department of Statistics Malaysia
+  </a>
 </p>
 
-<a
-  href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-july-2026"
-  target="_blank"
-  rel="noopener noreferrer">
+<p class="reference">
+  Market-reference figures shown above are point-in-time references
+  and are not automatically updated by this simulator.
+</p>
 
-  Open DOSM CPI release
-
-</a>
-
-</div>
-
-
-</div>
+<p class="reference">
+  This simulator is an educational planning tool and is not investment
+  advice. MGS and GII are government securities, not PIDM-protected
+  bank deposits.
+</p>
 
 </section>
+
+
+<div class="footer">
+  Passive Income &amp; Capital Preservation Simulator
+</div>
 
 </div>
 
 
 <script>
-"use strict";
-
 
 /* =========================================================
-   GLOBAL STATE
+   STATE
 ========================================================= */
 
-let selectedStrategy = "max";
+var currentStrategy = "max";
 
-let lastRows = [];
+var assumptionsDirty = false;
+var monthlyManuallyEdited = false;
+var treatmentDirty = false;
+
+var lastRows = [];
 
 
 /* =========================================================
@@ -1501,173 +1396,143 @@ let lastRows = [];
 ========================================================= */
 
 function el(id){
-
   return document.getElementById(id);
 }
 
 
 function parseMoney(value){
 
-  const cleaned =
-    String(value ?? "")
-      .replace(/RM/gi,"")
-      .replace(/,/g,"")
-      .replace(/[^\d.-]/g,"");
+  var cleaned =
+    String(value)
+    .replace(/RM/gi,"")
+    .replace(/,/g,"")
+    .replace(/\s/g,"");
 
+  var number = Number(cleaned);
 
-  const number =
-    Number(cleaned);
-
-
-  return Number.isFinite(number)
+  return isFinite(number)
     ? number
     : 0;
 }
 
 
-function number2(number){
-
-  return Number(number).toLocaleString(
-    "en-MY",
-    {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    }
-  );
-}
-
-
-function number0(number){
-
-  return Math.round(
-    Number(number)
-  ).toLocaleString(
-    "en-MY",
-    {
-      maximumFractionDigits:0
-    }
-  );
-}
-
-
-function rm2(number){
+function money0(value){
 
   return "RM" +
-    number2(number);
+    Math.round(value)
+    .toLocaleString("en-MY");
 }
 
 
-function rm0(number){
+function money2(value){
 
   return "RM" +
-    number0(number);
+    Number(value)
+    .toLocaleString(
+      "en-MY",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
 }
 
 
-function percent2(number){
+function inputMoney(value){
 
-  return (
-    number *
-    100
-  ).toFixed(2) +
-  "%";
+  return Number(value)
+    .toLocaleString(
+      "en-MY",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+}
+
+
+function percent(value){
+
+  return (value * 100)
+    .toFixed(2) + "%";
 }
 
 
 function moneyFocus(input){
 
-  const number =
-    parseMoney(
-      input.value
-    );
-
+  var value =
+    parseMoney(input.value);
 
   input.value =
-    number.toFixed(2);
+    value.toFixed(2);
 
-
-  setTimeout(
-    function(){
-
-      try{
-
-        input.select();
-
-      }
-      catch(error){
-      }
-
-    },
-    20
-  );
+  input.select();
 }
 
 
 function moneyBlur(input){
 
-  const number =
-    Math.max(
-      0,
-      parseMoney(
-        input.value
-      )
-    );
-
+  var value =
+    parseMoney(input.value);
 
   input.value =
-    number2(number);
+    inputMoney(value);
 
-
-  /*
-    IMPORTANT:
-    Only update the small input helper.
-    Do NOT recalculate the projection.
-  */
-
-  updateInputHelpers();
+  updateHelpers();
 }
 
 
-function updateInputHelpers(){
+function updateHelpers(){
 
-  const capital =
-    Math.max(
-      0,
-      parseMoney(
-        el("capital").value
-      )
+  var capital =
+    parseMoney(
+      el("capital").value
     );
 
-
-  const monthly =
-    Math.max(
-      0,
-      parseMoney(
-        el("monthly").value
-      )
+  var monthly =
+    parseMoney(
+      el("monthly").value
     );
-
 
   el("capitalHelper").textContent =
-    rm0(capital);
-
+    money0(capital);
 
   el("monthlyHelper").textContent =
-    rm2(monthly) +
+    money2(monthly) +
     " per month";
 }
 
 
-function getValues(){
+/* =========================================================
+   DIRTY STATE
+========================================================= */
+
+function markAssumptionsDirty(){
+  assumptionsDirty = true;
+}
+
+
+function markMonthlyManual(){
+  monthlyManuallyEdited = true;
+}
+
+
+function markTreatmentDirty(){
+  treatmentDirty = true;
+}
+
+
+/* =========================================================
+   READ INPUTS
+========================================================= */
+
+function getInputs(){
 
   return {
 
     capital:
-      Math.max(
-        0,
-        parseMoney(
-          el("capital").value
-        )
+      parseMoney(
+        el("capital").value
       ),
 
     rate:
@@ -1686,11 +1551,8 @@ function getValues(){
       ),
 
     monthly:
-      Math.max(
-        0,
-        parseMoney(
-          el("monthly").value
-        )
+      parseMoney(
+        el("monthly").value
       ),
 
     escalate:
@@ -1698,6 +1560,10 @@ function getValues(){
   };
 }
 
+
+/* =========================================================
+   RETURN CALCULATION
+========================================================= */
 
 function monthlyRate(annualRate){
 
@@ -1709,177 +1575,64 @@ function monthlyRate(annualRate){
 
 
 /* =========================================================
-   STRATEGY SELECTION
-========================================================= */
-
-function setStrategyAppearance(){
-
-  el("strategyMax")
-    .classList
-    .toggle(
-      "active",
-      selectedStrategy === "max"
-    );
-
-
-  el("strategyReal")
-    .classList
-    .toggle(
-      "active",
-      selectedStrategy === "real"
-    );
-
-
-  el("strategyBalanced")
-    .classList
-    .toggle(
-      "active",
-      selectedStrategy === "balanced"
-    );
-}
-
-
-function chooseStrategy(strategy){
-
-  selectedStrategy =
-    strategy;
-
-
-  setStrategyAppearance();
-
-
-  /*
-    Selecting a strategy loads its defaults.
-
-    Distribution purchasing-power escalation
-    is OFF by default for all strategies.
-  */
-
-  loadStrategyDefaults();
-
-
-  /*
-    Strategy selection is an explicit action,
-    so show the selected strategy's projection.
-  */
-
-  recalculate();
-}
-
-
-/* =========================================================
    SIMULATION ENGINE
 ========================================================= */
 
 function simulate(
-  startMonthly,
-  escalateOverride
+  capital,
+  annualRate,
+  inflation,
+  years,
+  startingMonthly,
+  escalate
 ){
 
-  const v =
-    getValues();
+  var balance = capital;
 
+  var mr =
+    monthlyRate(annualRate);
 
-  let balance =
-    v.capital;
+  var payment =
+    startingMonthly;
 
+  var total = 0;
 
-  let monthlyPayment =
-    Math.max(
-      0,
-      startMonthly
-    );
-
-
-  const escalate =
-    typeof escalateOverride === "boolean"
-      ? escalateOverride
-      : v.escalate;
-
-
-  let totalPaid = 0;
-
-  let depleted = false;
-
-  let depletionYear = null;
-
-
-  const mr =
-    monthlyRate(
-      v.rate
-    );
-
-
-  const rows = [];
+  var rows = [];
 
 
   for(
-    let year = 1;
-    year <= v.years;
+    var year = 1;
+    year <= years;
     year++
   ){
 
-    const opening =
-      balance;
+    var yearDistributions = 0;
 
-
-    const yearMonthly =
-      monthlyPayment;
-
-
-    let annualPaid = 0;
+    var monthlyForYear =
+      payment;
 
 
     for(
-      let month = 1;
+      var month = 1;
       month <= 12;
       month++
     ){
 
-      if(
-        balance <= 0.005
-      ){
-
+      if(balance <= 0){
         balance = 0;
-
-
-        if(
-          monthlyPayment > 0
-        ){
-
-          depleted = true;
-
-
-          if(
-            depletionYear === null
-          ){
-
-            depletionYear =
-              year;
-          }
-        }
-
-
-        continue;
+        break;
       }
 
 
-      /*
-        Credit portfolio growth.
-      */
-
-      balance *=
-        1 + mr;
+      balance =
+        balance *
+        (1 + mr);
 
 
-      /*
-        Then pay the monthly distribution.
-      */
-
-      const actualPayment =
+      var actualPayment =
         Math.min(
-          monthlyPayment,
-          balance
+          payment,
+          Math.max(balance,0)
         );
 
 
@@ -1887,221 +1640,122 @@ function simulate(
         actualPayment;
 
 
-      if(
-        balance < 0.005
-      ){
-
-        balance = 0;
-      }
-
-
-      annualPaid +=
+      yearDistributions +=
         actualPayment;
 
 
-      totalPaid +=
+      total +=
         actualPayment;
-
-
-      if(
-        actualPayment + 0.01 <
-        monthlyPayment
-      ){
-
-        depleted = true;
-
-
-        if(
-          depletionYear === null
-        ){
-
-          depletionYear =
-            year;
-        }
-      }
     }
 
 
-    /*
-      Inflation ALWAYS affects purchasing power,
-      regardless of checkbox status.
-    */
-
-    const realBalance =
-      balance /
+    var inflationFactor =
       Math.pow(
-        1 + v.inflation,
+        1 + inflation,
         year
       );
 
 
-    rows.push(
-      {
-        year:year,
-        opening:opening,
-        paid:annualPaid,
-        ending:balance,
-        real:realBalance,
-        monthly:yearMonthly
-      }
-    );
+    var realCapital =
+      balance /
+      inflationFactor;
 
 
-    /*
-      Checkbox controls DISTRIBUTION escalation only.
-    */
-
-    if(escalate){
-
-      monthlyPayment *=
-        1 + v.inflation;
-    }
-  }
+    var realMonthly =
+      monthlyForYear /
+      inflationFactor;
 
 
-  return {
+    rows.push({
 
-    balance:balance,
+      year:
+        year,
 
-    totalPaid:totalPaid,
+      endingCapital:
+        balance,
 
-    rows:rows,
+      realCapital:
+        realCapital,
 
-    depleted:depleted,
+      annualDistributions:
+        yearDistributions,
 
-    depletionYear:depletionYear,
+      monthlyDistribution:
+        monthlyForYear,
 
-    finalMonthly:
-      rows.length
-        ? rows[
-            rows.length - 1
-          ].monthly
-        : startMonthly
-  };
-}
-
-
-/* =========================================================
-   REAL CAPITAL SOLVER
-========================================================= */
-
-function solveRealCapitalIncome(
-  escalate
-){
-
-  const v =
-    getValues();
-
-
-  /*
-    To preserve REAL starting capital,
-    ending nominal capital must equal:
-
-    starting capital × (1 + inflation)^years
-  */
-
-  const target =
-    v.capital *
-    Math.pow(
-      1 + v.inflation,
-      v.years
-    );
-
-
-  const zeroIncomeResult =
-    simulate(
-      0,
-      escalate
-    );
-
-
-  /*
-    If the portfolio cannot reach the inflation-adjusted
-    target even with zero distributions, there is no
-    positive sustainable distribution under these
-    assumptions.
-  */
-
-  if(
-    zeroIncomeResult.balance +
-    0.01 <
-    target
-  ){
-
-    return {
-
-      possible:false,
-
-      monthly:0,
-
-      target:target
-    };
-  }
-
-
-  let low =
-    0;
-
-
-  let high =
-    Math.max(
-      v.capital / 12,
-      v.capital *
-        monthlyRate(
-          v.rate
-        ) *
-        4,
-      1
-    );
-
-
-  for(
-    let i = 0;
-    i < 100;
-    i++
-  ){
-
-    const mid =
-      (
-        low +
-        high
-      ) / 2;
-
-
-    const result =
-      simulate(
-        mid,
-        escalate
-      );
+      realMonthlyDistribution:
+        realMonthly
+    });
 
 
     if(
-      result.balance >=
-      target
+      escalate &&
+      balance > 0
     ){
 
-      low =
-        mid;
+      payment *=
+        1 + inflation;
     }
-    else{
 
-      high =
-        mid;
+
+    if(balance <= 0){
+
+      for(
+        var remaining =
+          year + 1;
+
+        remaining <= years;
+
+        remaining++
+      ){
+
+        rows.push({
+
+          year:
+            remaining,
+
+          endingCapital:
+            0,
+
+          realCapital:
+            0,
+
+          annualDistributions:
+            0,
+
+          monthlyDistribution:
+            0,
+
+          realMonthlyDistribution:
+            0
+        });
+      }
+
+      break;
     }
   }
 
 
+  var finalMonthly =
+    rows.length
+      ? rows[rows.length - 1]
+          .monthlyDistribution
+      : startingMonthly;
+
+
   return {
 
-    possible:true,
+    balance:
+      balance,
 
-    monthly:
-      (
-        low +
-        high
-      ) / 2,
+    total:
+      total,
 
-    target:target
+    finalMonthly:
+      finalMonthly,
+
+    rows:
+      rows
   };
 }
 
@@ -2110,310 +1764,354 @@ function solveRealCapitalIncome(
    STRATEGY DEFAULTS
 ========================================================= */
 
-function loadStrategyDefaults(){
+function maximumDistribution(
+  capital,
+  rate
+){
 
-  const v =
-    getValues();
+  return capital *
+    monthlyRate(rate);
+}
+
+
+function balancedDistribution(
+  capital
+){
+
+  return capital *
+    0.024 /
+    12;
+}
+
+
+/*
+  Finds the starting distribution that leaves the portfolio
+  with enough nominal capital at the end to equal the
+  inflation-adjusted future value of starting capital.
+
+  If the distribution-escalation checkbox is ON, the solver
+  also allows for those annual increases.
+*/
+
+function preserveRealCapitalDistribution(
+  capital,
+  rate,
+  inflation,
+  years,
+  escalate
+){
+
+  var target =
+    capital *
+    Math.pow(
+      1 + inflation,
+      years
+    );
+
+
+  var zeroResult =
+    simulate(
+      capital,
+      rate,
+      inflation,
+      years,
+      0,
+      escalate
+    );
+
+
+  if(
+    zeroResult.balance <
+    target
+  ){
+
+    return 0;
+  }
+
+
+  var low = 0;
+
+  var high =
+    Math.max(
+      capital / 12,
+      1
+    );
+
+
+  for(
+    var i = 0;
+    i < 90;
+    i++
+  ){
+
+    var mid =
+      (low + high) / 2;
+
+
+    var result =
+      simulate(
+        capital,
+        rate,
+        inflation,
+        years,
+        mid,
+        escalate
+      );
+
+
+    if(
+      result.balance >
+      target
+    ){
+
+      low = mid;
+
+    }else{
+
+      high = mid;
+    }
+  }
+
+
+  return (low + high) / 2;
+}
+
+
+/* =========================================================
+   DEFAULT MONTHLY DISTRIBUTION FOR CURRENT STRATEGY
+========================================================= */
+
+function strategyDefaultDistribution(){
+
+  var v =
+    getInputs();
+
+
+  if(
+    currentStrategy === "max"
+  ){
+
+    return maximumDistribution(
+      v.capital,
+      v.rate
+    );
+  }
+
+
+  if(
+    currentStrategy === "balanced"
+  ){
+
+    return balancedDistribution(
+      v.capital
+    );
+  }
+
+
+  return preserveRealCapitalDistribution(
+    v.capital,
+    v.rate,
+    v.inflation,
+    v.years,
+    v.escalate
+  );
+}
+
+
+function applyStrategyDefaultDistribution(){
+
+  var monthly =
+    strategyDefaultDistribution();
+
+
+  el("monthly").value =
+    inputMoney(monthly);
+
+
+  updateHelpers();
+}
+
+
+/* =========================================================
+   STRATEGY SELECTION
+========================================================= */
+
+function setStrategyHighlight(){
+
+  el("strategy-max")
+    .classList
+    .toggle(
+      "active",
+      currentStrategy === "max"
+    );
+
+
+  el("strategy-real")
+    .classList
+    .toggle(
+      "active",
+      currentStrategy === "real"
+    );
+
+
+  el("strategy-balanced")
+    .classList
+    .toggle(
+      "active",
+      currentStrategy === "balanced"
+    );
+}
+
+
+function selectStrategy(strategy){
+
+  currentStrategy =
+    strategy;
+
+
+  setStrategyHighlight();
 
 
   /*
-    REQUIRED DEFAULT:
-
-    Purchasing-power escalation of the monthly
-    distribution is OFF for ALL strategies.
+    Each newly selected strategy starts with
+    distribution escalation OFF.
   */
 
   el("escalate").checked =
     false;
 
 
-  if(
-    v.capital <= 0
-  ){
+  monthlyManuallyEdited =
+    false;
 
-    el("monthly").value =
-      "0.00";
+  assumptionsDirty =
+    false;
 
-
-    updateInputHelpers();
-
-
-    return;
-  }
+  treatmentDirty =
+    false;
 
 
-  /* ---------------------------------------------------------
-     OPTION 1 — MAXIMUM INCOME
+  applyStrategyDefaultDistribution();
 
-     Equivalent monthly portfolio return on starting capital.
-  --------------------------------------------------------- */
-
-  if(
-    selectedStrategy === "max"
-  ){
-
-    const monthly =
-      v.capital *
-      monthlyRate(
-        v.rate
-      );
-
-
-    el("monthly").value =
-      number2(
-        monthly
-      );
-  }
-
-
-  /* ---------------------------------------------------------
-     OPTION 2 — PRESERVE REAL CAPITAL
-
-     Solve for constant nominal monthly distribution
-     while targeting inflation-adjusted ending capital.
-  --------------------------------------------------------- */
-
-  else if(
-    selectedStrategy === "real"
-  ){
-
-    const solved =
-      solveRealCapitalIncome(
-        false
-      );
-
-
-    el("monthly").value =
-      number2(
-        solved.monthly
-      );
-  }
-
-
-  /* ---------------------------------------------------------
-     OPTION 3 — BALANCED
-
-     Default annual distribution = 2.4% of capital.
-  --------------------------------------------------------- */
-
-  else if(
-    selectedStrategy === "balanced"
-  ){
-
-    const monthly =
-      v.capital *
-      0.024 /
-      12;
-
-
-    el("monthly").value =
-      number2(
-        monthly
-      );
-  }
-
-
-  updateInputHelpers();
+  calculateProjection();
 }
 
 
 /* =========================================================
-   RESET BUTTON
+   RESET STRATEGY DEFAULTS
 ========================================================= */
 
 function resetStrategyDefaults(){
 
   /*
-    Restore common planning assumptions.
+    Keep the currently selected strategy and the user's
+    current capital / return / inflation / horizon.
 
-    IMPORTANT:
-    Do NOT change selectedStrategy.
+    Reset only the strategy-controlled distribution and
+    distribution treatment.
   */
-
-  el("capital").value =
-    "1,000,000.00";
-
-
-  el("rate").value =
-    "0.0417";
-
-
-  el("inflation").value =
-    "0.0300";
-
-
-  el("years").value =
-    "10";
-
 
   el("escalate").checked =
     false;
 
 
-  /*
-    Restore the default distribution for
-    whichever strategy is currently selected.
-  */
+  monthlyManuallyEdited =
+    false;
 
-  loadStrategyDefaults();
+  assumptionsDirty =
+    false;
 
-
-  /*
-    Reset is an explicit action.
-  */
-
-  recalculate();
-}
+  treatmentDirty =
+    false;
 
 
-/* =========================================================
-   PROJECTION ASSUMPTIONS
-========================================================= */
+  applyStrategyDefaultDistribution();
 
-function updateProjectionAssumptions(){
-
-  const v =
-    getValues();
-
-
-  el("projectionRate").textContent =
-    percent2(
-      v.rate
-    );
-
-
-  el("projectionInflation").textContent =
-    percent2(
-      v.inflation
-    );
-
-
-  /*
-    Show descriptive text from the selected options.
-  */
-
-  const rateText =
-    el("rate")
-      .options[
-        el("rate").selectedIndex
-      ]
-      .text;
-
-
-  const inflationText =
-    el("inflation")
-      .options[
-        el("inflation").selectedIndex
-      ]
-      .text;
-
-
-  const rateParts =
-    rateText.split("—");
-
-
-  const inflationParts =
-    inflationText.split("—");
-
-
-  el("projectionRateNote").textContent =
-    rateParts.length > 1
-      ? rateParts
-          .slice(1)
-          .join("—")
-          .trim()
-      : "selected assumption";
-
-
-  el("projectionInflationNote").textContent =
-    inflationParts.length > 1
-      ? inflationParts
-          .slice(1)
-          .join("—")
-          .trim()
-      : "selected assumption";
+  calculateProjection();
 }
 
 
 /* =========================================================
    RECALCULATE
-
-   Editing fields alone does NOT call this function.
 ========================================================= */
 
 function recalculate(){
 
-  const capital =
-    Math.max(
-      0,
-      parseMoney(
-        el("capital").value
-      )
-    );
-
-
-  const monthly =
-    Math.max(
-      0,
-      parseMoney(
-        el("monthly").value
-      )
-    );
-
-
   /*
-    Normalize editable monetary inputs.
+    Format the visible numbers first.
   */
 
+  var capital =
+    parseMoney(
+      el("capital").value
+    );
+
+
   el("capital").value =
-    number2(
-      capital
+    inputMoney(capital);
+
+
+  var monthly =
+    parseMoney(
+      el("monthly").value
     );
 
 
   el("monthly").value =
-    number2(
-      monthly
-    );
-
-
-  updateInputHelpers();
-
-
-  const v =
-    getValues();
-
-
-  if(
-    v.capital <= 0
-  ){
-
-    el("status").className =
-      "status bad";
-
-
-    el("status").textContent =
-      "Enter a starting capital greater than zero.";
-
-
-    el("statusText").textContent =
-      "";
-
-
-    return;
-  }
+    inputMoney(monthly);
 
 
   /*
-    Projection assumptions are updated ONLY
-    when Recalculate is pressed.
+    If assumptions have changed and the user has NOT
+    manually overridden the monthly distribution,
+    recompute the selected strategy's default distribution.
+
+    This fixes the RM1m -> RM5m recalculation issue while
+    still allowing a manually entered distribution to be
+    respected.
   */
 
-  updateProjectionAssumptions();
+  if(
+    !monthlyManuallyEdited &&
+    (
+      assumptionsDirty ||
+      treatmentDirty
+    )
+  ){
+
+    applyStrategyDefaultDistribution();
+  }
 
 
-  const result =
+  updateHelpers();
+
+  calculateProjection();
+
+
+  assumptionsDirty =
+    false;
+
+  treatmentDirty =
+    false;
+}
+
+
+/* =========================================================
+   MAIN PROJECTION
+========================================================= */
+
+function calculateProjection(){
+
+  var v =
+    getInputs();
+
+
+  var result =
     simulate(
+      v.capital,
+      v.rate,
+      v.inflation,
+      v.years,
       v.monthly,
       v.escalate
     );
@@ -2423,11 +2121,7 @@ function recalculate(){
     result.rows;
 
 
-  /*
-    Inflation ALWAYS applies here.
-  */
-
-  const realEnd =
+  var realEnding =
     result.balance /
     Math.pow(
       1 + v.inflation,
@@ -2435,158 +2129,65 @@ function recalculate(){
     );
 
 
-  /* ---------------------------------------------------------
-     PROJECTION CARDS
+  el("initialMetric").textContent =
+    money0(v.capital);
 
-     Whole RM only — no decimal points.
-  --------------------------------------------------------- */
 
-  el("mInitial").textContent =
-    rm0(
-      v.capital
+  el("monthlyMetric").textContent =
+    money0(v.monthly);
+
+
+  el("endingMetric").textContent =
+    money0(result.balance);
+
+
+  el("realMetric").textContent =
+    money0(realEnding);
+
+
+  el("totalMetric").textContent =
+    money0(result.total);
+
+
+  el("finalMonthlyMetric").textContent =
+    money0(result.finalMonthly);
+
+
+  el("projectionReturn").textContent =
+    percent(v.rate);
+
+
+  el("projectionInflation").textContent =
+    percent(v.inflation);
+
+
+  el("projectionYears").textContent =
+    v.years +
+    (
+      v.years === 1
+        ? " year"
+        : " years"
     );
 
 
-  el("mMonthly").textContent =
-    rm0(
-      v.monthly
-    );
+  /*
+    Keep explanatory capital amount synchronized with
+    the actual starting capital used in the projection.
+  */
+
+  el("methodCapital1").textContent =
+    money0(v.capital);
 
 
-  el("mEnding").textContent =
-    rm0(
-      result.balance
-    );
+  el("methodCapital2").textContent =
+    money0(v.capital);
 
 
-  el("mReal").textContent =
-    rm0(
-      realEnd
-    );
-
-
-  el("mTotal").textContent =
-    rm0(
-      result.totalPaid
-    );
-
-
-  el("mFinalMonthly").textContent =
-    rm0(
-      result.finalMonthly
-    );
-
-
-  /* ---------------------------------------------------------
-     STATUS
-  --------------------------------------------------------- */
-
-  const nominalRatio =
-    result.balance /
-    v.capital;
-
-
-  const realRatio =
-    realEnd /
-    v.capital;
-
-
-  let statusClass =
-    "warn";
-
-
-  let statusTitle =
-    "";
-
-
-  let statusText =
-    "";
-
-
-  if(
-    result.depleted ||
-    result.balance <= 0.005
-  ){
-
-    statusClass =
-      "bad";
-
-
-    statusTitle =
-      "Capital depleted";
-
-
-    statusText =
-      result.depletionYear
-        ? "Under these assumptions, the portfolio is exhausted during approximately year " +
-          result.depletionYear +
-          "."
-        : "Under these assumptions, the portfolio is exhausted before the end of the selected planning horizon.";
-  }
-
-
-  else if(
-    realRatio >= 0.995
-  ){
-
-    statusClass =
-      "good";
-
-
-    statusTitle =
-      "Real capital preserved";
-
-
-    statusText =
-      "Ending capital retains approximately the purchasing power of the starting portfolio after applying the selected inflation assumption.";
-  }
-
-
-  else if(
-    nominalRatio >= 0.995
-  ){
-
-    statusClass =
-      "warn";
-
-
-    statusTitle =
-      "Nominal capital preserved";
-
-
-    statusText =
-      "The portfolio approximately preserves or increases its ringgit balance, but inflation reduces its purchasing power over time.";
-  }
-
-
-  else{
-
-    statusClass =
-      "bad";
-
-
-    statusTitle =
-      "Nominal capital eroding";
-
-
-    statusText =
-      v.escalate
-        ? "The inflation-linked distribution maintains more of its spending power, but the larger future distributions cause nominal capital to decline under these assumptions."
-        : "The selected distribution causes the portfolio to finish below its starting nominal capital under the selected return assumptions.";
-  }
-
-
-  el("status").className =
-    "status " +
-    statusClass;
-
-
-  el("status").textContent =
-    statusTitle;
-
-
-  el("statusText").textContent =
-    statusText;
+  updateStatus(
+    v.capital,
+    result.balance,
+    realEnding
+  );
 
 
   renderTable(
@@ -2602,85 +2203,140 @@ function recalculate(){
 
 
 /* =========================================================
-   YEAR-BY-YEAR TABLE
+   STATUS
+========================================================= */
+
+function updateStatus(
+  initial,
+  nominal,
+  real
+){
+
+  var box =
+    el("statusBox");
+
+  var text =
+    el("statusText");
+
+
+  box.className =
+    "status";
+
+
+  if(
+    nominal <= 0.01
+  ){
+
+    box.classList.add("bad");
+
+    box.textContent =
+      "Capital depleted";
+
+    text.textContent =
+      "The selected distribution level exhausts the portfolio within the planning horizon.";
+
+    return;
+  }
+
+
+  if(
+    real >=
+    initial * 0.995
+  ){
+
+    box.classList.add("good");
+
+    box.textContent =
+      "Real capital preserved";
+
+    text.textContent =
+      "The ending portfolio approximately preserves or exceeds the purchasing power of the starting capital.";
+
+    return;
+  }
+
+
+  if(
+    nominal >=
+    initial * 0.995
+  ){
+
+    box.classList.add("warn");
+
+    box.textContent =
+      "Nominal capital preserved";
+
+    text.textContent =
+      "The portfolio approximately preserves or increases its ringgit balance, but inflation reduces its purchasing power over time.";
+
+    return;
+  }
+
+
+  box.classList.add("bad");
+
+  box.textContent =
+    "Nominal capital eroding";
+
+  text.textContent =
+    "The selected distribution level reduces the nominal capital balance and its inflation-adjusted purchasing power.";
+}
+
+
+/* =========================================================
+   TABLE
 ========================================================= */
 
 function renderTable(rows){
 
-  const tbody =
-    el("projectionRows");
+  var tbody =
+    el("projectionTable");
 
 
-  tbody.innerHTML =
-    "";
+  var html = "";
 
 
   rows.forEach(
     function(row){
 
-      const tr =
-        document.createElement(
-          "tr"
-        );
+      html +=
+        "<tr>" +
 
+        "<td>" +
+          row.year +
+        "</td>" +
 
-      /*
-        Whole RM values in table.
-      */
+        "<td>" +
+          money0(
+            row.endingCapital
+          ) +
+        "</td>" +
 
-      const values = [
+        "<td>" +
+          money0(
+            row.realCapital
+          ) +
+        "</td>" +
 
-        String(
-          row.year
-        ),
+        "<td>" +
+          money0(
+            row.monthlyDistribution
+          ) +
+        "</td>" +
 
-        rm0(
-          row.opening
-        ),
+        "<td>" +
+          money0(
+            row.realMonthlyDistribution
+          ) +
+        "</td>" +
 
-        rm0(
-          row.paid
-        ),
-
-        rm0(
-          row.ending
-        ),
-
-        rm0(
-          row.real
-        ),
-
-        rm0(
-          row.monthly
-        )
-      ];
-
-
-      values.forEach(
-        function(value){
-
-          const td =
-            document.createElement(
-              "td"
-            );
-
-
-          td.textContent =
-            value;
-
-
-          tr.appendChild(
-            td
-          );
-        }
-      );
-
-
-      tbody.appendChild(
-        tr
-      );
+        "</tr>";
     }
   );
+
+
+  tbody.innerHTML =
+    html;
 }
 
 
@@ -2689,113 +2345,104 @@ function renderTable(rows){
 ========================================================= */
 
 function renderChart(
-  initial,
+  initialCapital,
   rows
 ){
 
-  const svg =
+  var chart =
     el("chart");
 
 
-  const W =
-    800;
-
-
-  const H =
-    360;
-
-
-  const left =
-    82;
-
-
-  const right =
-    28;
-
-
-  const top =
-    28;
-
-
-  const bottom =
-    55;
-
-
-  const data = [
+  var data = [
 
     {
       year:0,
-      ending:initial,
-      real:initial
+      nominal:initialCapital,
+      real:initialCapital
     }
 
-  ].concat(
-    rows
+  ];
+
+
+  rows.forEach(
+    function(row){
+
+      data.push({
+
+        year:
+          row.year,
+
+        nominal:
+          row.endingCapital,
+
+        real:
+          row.realCapital
+      });
+    }
   );
 
 
-  let maxValue =
-    initial;
+  var width = 900;
+  var height = 320;
+
+  var left = 75;
+  var right = 20;
+  var top = 20;
+  var bottom = 48;
+
+
+  var plotWidth =
+    width -
+    left -
+    right;
+
+
+  var plotHeight =
+    height -
+    top -
+    bottom;
+
+
+  var maxValue =
+    Math.max(
+      initialCapital,
+      1
+    );
 
 
   data.forEach(
-    function(item){
+    function(d){
 
       maxValue =
         Math.max(
           maxValue,
-          item.ending,
-          item.real
+          d.nominal,
+          d.real
         );
     }
   );
 
 
-  maxValue *=
-    1.08;
-
-
-  if(
-    maxValue <= 0
-  ){
-
-    maxValue =
-      1;
-  }
+  maxValue *= 1.08;
 
 
   function x(index){
 
-    if(
-      data.length <= 1
-    ){
-
+    if(data.length <= 1){
       return left;
     }
 
-
     return left +
-      (
-        W -
-        left -
-        right
-      ) *
-      index /
-      (
-        data.length -
-        1
-      );
+      index *
+      plotWidth /
+      (data.length - 1);
   }
 
 
   function y(value){
 
     return top +
-      (
-        H -
-        top -
-        bottom
-      ) *
+      plotHeight *
       (
         1 -
         value /
@@ -2806,386 +2453,268 @@ function renderChart(
 
   function pathFor(key){
 
-    return data.map(
-      function(
-        item,
-        index
-      ){
+    return data
+      .map(
+        function(d,index){
 
-        return (
-          (
-            index === 0
-              ? "M"
-              : "L"
-          ) +
-          x(index).toFixed(1) +
-          " " +
-          y(
-            item[key]
-          ).toFixed(1)
-        );
-      }
-    ).join(" ");
-  }
-
-
-  function shortMoney(value){
-
-    if(
-      value >= 1000000
-    ){
-
-      return (
-        "RM" +
-        (
-          value /
-          1000000
-        ).toFixed(1) +
-        "m"
-      );
-    }
-
-
-    if(
-      value >= 1000
-    ){
-
-      return (
-        "RM" +
-        Math.round(
-          value /
-          1000
-        ) +
-        "k"
-      );
-    }
-
-
-    return (
-      "RM" +
-      Math.round(
-        value
+          return (
+            (
+              index === 0
+                ? "M"
+                : "L"
+            ) +
+            x(index).toFixed(1) +
+            " " +
+            y(d[key]).toFixed(1)
+          );
+        }
       )
-    );
+      .join(" ");
   }
 
 
-  let html =
-    "";
+  var grid = "";
 
-
-  /* ---------------------------------------------------------
-     HORIZONTAL GRID
-  --------------------------------------------------------- */
 
   for(
-    let i = 0;
-    i <= 4;
-    i++
+    var g = 0;
+    g <= 4;
+    g++
   ){
 
-    const gridValue =
+    var gridValue =
       maxValue *
-      (
-        1 -
-        i / 4
-      );
+      (1 - g / 4);
 
 
-    const yy =
+    var gridY =
       top +
-      (
-        H -
-        top -
-        bottom
-      ) *
-      i /
-      4;
+      plotHeight *
+      g / 4;
 
 
-    html +=
+    grid +=
       '<line x1="' +
       left +
       '" y1="' +
-      yy +
+      gridY +
       '" x2="' +
-      (
-        W -
-        right
-      ) +
+      (width - right) +
       '" y2="' +
-      yy +
-      '" stroke="#27313e" stroke-width="1"/>';
+      gridY +
+      '" stroke="#263241" stroke-width="1"/>' +
 
-
-    html +=
       '<text x="' +
-      (
-        left -
-        10
-      ) +
+      (left - 10) +
       '" y="' +
-      (
-        yy +
-        5
-      ) +
-      '" text-anchor="end" fill="#9aa6b5" font-size="15">' +
-      shortMoney(
-        gridValue
-      ) +
+      (gridY + 5) +
+      '" text-anchor="end" fill="#778494" font-size="13">' +
+      shortRM(gridValue) +
       "</text>";
   }
 
 
-  /* ---------------------------------------------------------
-     STARTING CAPITAL REFERENCE
-  --------------------------------------------------------- */
+  var labels = "";
 
-  const referenceY =
-    y(
-      initial
-    );
+  var labelIndexes = [];
 
 
-  html +=
-    '<line x1="' +
-    left +
-    '" y1="' +
-    referenceY +
-    '" x2="' +
-    (
-      W -
-      right
-    ) +
-    '" y2="' +
-    referenceY +
-    '" stroke="#f2a65a" stroke-width="2" stroke-dasharray="8 7" opacity=".85"/>';
+  if(
+    data.length <= 6
+  ){
+
+    for(
+      var a = 0;
+      a < data.length;
+      a++
+    ){
+
+      labelIndexes.push(a);
+    }
+
+  }else{
+
+    labelIndexes = [
+
+      0,
+
+      Math.round(
+        (data.length - 1) *
+        0.25
+      ),
+
+      Math.round(
+        (data.length - 1) *
+        0.50
+      ),
+
+      Math.round(
+        (data.length - 1) *
+        0.75
+      ),
+
+      data.length - 1
+    ];
+  }
 
 
-  /* ---------------------------------------------------------
-     NOMINAL CAPITAL
-  --------------------------------------------------------- */
-
-  html +=
-    '<path d="' +
-    pathFor(
-      "ending"
-    ) +
-    '" fill="none" stroke="#4d8df7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>';
+  var unique = [];
 
 
-  /* ---------------------------------------------------------
-     REAL CAPITAL
-  --------------------------------------------------------- */
-
-  html +=
-    '<path d="' +
-    pathFor(
-      "real"
-    ) +
-    '" fill="none" stroke="#34c98f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>';
-
-
-  /* ---------------------------------------------------------
-     X AXIS
-  --------------------------------------------------------- */
-
-  const last =
-    data.length -
-    1;
-
-
-  const ticks = [
-
-    0,
-
-    Math.round(
-      last *
-      0.25
-    ),
-
-    Math.round(
-      last *
-      0.50
-    ),
-
-    Math.round(
-      last *
-      0.75
-    ),
-
-    last
-  ];
-
-
-  const used =
-    {};
-
-
-  ticks.forEach(
+  labelIndexes.forEach(
     function(index){
 
       if(
-        used[index]
+        unique.indexOf(index) === -1
       ){
 
-        return;
+        unique.push(index);
       }
+    }
+  );
 
 
-      used[index] =
-        true;
+  unique.forEach(
+    function(index){
 
-
-      html +=
+      labels +=
         '<text x="' +
         x(index) +
         '" y="' +
+        (height - 15) +
+        '" text-anchor="middle" fill="#778494" font-size="13">' +
+
         (
-          H -
-          18
+          index === 0
+            ? "Year 0"
+            : "Year " +
+              data[index].year
         ) +
-        '" text-anchor="middle" fill="#9aa6b5" font-size="16">' +
-        "Year " +
-        data[index].year +
+
         "</text>";
     }
   );
 
 
-  svg.innerHTML =
-    html;
+  chart.innerHTML =
+
+    '<svg viewBox="0 0 ' +
+    width +
+    " " +
+    height +
+    '" width="100%" height="100%" role="img" aria-label="Capital projection chart">' +
+
+    grid +
+
+    '<path d="' +
+    pathFor("nominal") +
+    '" fill="none" stroke="#4d8df7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
+
+    '<path d="' +
+    pathFor("real") +
+    '" fill="none" stroke="#34c98f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
+
+    labels +
+
+    "</svg>";
 }
 
 
 /* =========================================================
-   CSV EXPORT
+   CHART MONEY LABELS
+========================================================= */
+
+function shortRM(value){
+
+  if(
+    value >= 1000000
+  ){
+
+    var millions =
+      value /
+      1000000;
+
+
+    return "RM" +
+      (
+        millions >= 10
+          ? millions.toFixed(0)
+          : millions.toFixed(1)
+      )
+      .replace(".0","") +
+      "m";
+  }
+
+
+  if(
+    value >= 1000
+  ){
+
+    return "RM" +
+      Math.round(
+        value / 1000
+      ) +
+      "k";
+  }
+
+
+  return "RM" +
+    Math.round(value);
+}
+
+
+/* =========================================================
+   CSV
 ========================================================= */
 
 function exportCSV(){
 
-  const v =
-    getValues();
-
-
-  if(
-    !lastRows.length
-  ){
-
-    recalculate();
+  if(!lastRows.length){
+    return;
   }
 
 
-  let strategyName =
-    "Maximum Income";
+  var lines = [];
 
 
-  if(
-    selectedStrategy === "real"
-  ){
-
-    strategyName =
-      "Preserve Real Capital";
-  }
-
-
-  if(
-    selectedStrategy === "balanced"
-  ){
-
-    strategyName =
-      "Balanced";
-  }
-
-
-  let csv =
-    "Passive Income & Capital Preservation Simulator\n";
-
-
-  csv +=
-    "Strategy," +
-    strategyName +
-    "\n";
-
-
-  csv +=
-    "Initial Capital," +
-    v.capital.toFixed(2) +
-    "\n";
-
-
-  csv +=
-    "Expected Annual Return," +
-    (
-      v.rate *
-      100
-    ).toFixed(2) +
-    "%\n";
-
-
-  csv +=
-    "Inflation," +
-    (
-      v.inflation *
-      100
-    ).toFixed(2) +
-    "%\n";
-
-
-  csv +=
-    "Planning Horizon," +
-    v.years +
-    " years\n";
-
-
-  csv +=
-    "Starting Monthly Distribution," +
-    v.monthly.toFixed(2) +
-    "\n";
-
-
-  csv +=
-    "Maintain Distribution Purchasing Power," +
-    (
-      v.escalate
-        ? "Yes"
-        : "No"
-    ) +
-    "\n\n";
-
-
-  csv +=
-    "Year,Opening Capital,Annual Distributions,Ending Capital,Today's RM,Monthly Distribution\n";
+  lines.push(
+    [
+      "Year",
+      "Ending capital",
+      "Capital in today's RM",
+      "Monthly distribution",
+      "Distribution in today's RM"
+    ].join(",")
+  );
 
 
   lastRows.forEach(
     function(row){
 
-      csv += [
-
-        row.year,
-
-        row.opening.toFixed(2),
-
-        row.paid.toFixed(2),
-
-        row.ending.toFixed(2),
-
-        row.real.toFixed(2),
-
-        row.monthly.toFixed(2)
-
-      ].join(",") +
-      "\n";
+      lines.push(
+        [
+          row.year,
+          Math.round(
+            row.endingCapital
+          ),
+          Math.round(
+            row.realCapital
+          ),
+          Math.round(
+            row.monthlyDistribution
+          ),
+          Math.round(
+            row.realMonthlyDistribution
+          )
+        ].join(",")
+      );
     }
   );
 
 
-  const blob =
+  var blob =
     new Blob(
-      [
-        csv
-      ],
+      [lines.join("\n")],
       {
         type:
           "text/csv;charset=utf-8"
@@ -3193,49 +2722,27 @@ function exportCSV(){
     );
 
 
-  const url =
-    URL.createObjectURL(
-      blob
-    );
+  var url =
+    URL.createObjectURL(blob);
 
 
-  const link =
-    document.createElement(
-      "a"
-    );
+  var a =
+    document.createElement("a");
 
 
-  link.href =
-    url;
+  a.href = url;
+
+  a.download =
+    "passive-income-capital-preservation-projection.csv";
 
 
-  link.download =
-    "passive-income-capital-preservation.csv";
+  document.body.appendChild(a);
 
+  a.click();
 
-  document.body.appendChild(
-    link
-  );
+  document.body.removeChild(a);
 
-
-  link.click();
-
-
-  document.body.removeChild(
-    link
-  );
-
-
-  setTimeout(
-    function(){
-
-      URL.revokeObjectURL(
-        url
-      );
-
-    },
-    1000
-  );
+  URL.revokeObjectURL(url);
 }
 
 
@@ -3243,100 +2750,95 @@ function exportCSV(){
    SHARE
 ========================================================= */
 
-async function shareSimulator(){
+function shareSimulator(){
 
-  const shareUrl =
+  var canonicalURL =
     "https://yeap68.github.io/-Passive-Income-Capital-Preservation-Simulator/";
 
 
-  const shareData = {
-
-    title:
-      "Passive Income & Capital Preservation Simulator",
-
-    text:
-      "Passive Income & Capital Preservation Simulator",
-
-    url:
-      shareUrl
-  };
+  var shareText =
+    "Passive Income & Capital Preservation Simulator\n\n" +
+    canonicalURL;
 
 
-  try{
+  if(navigator.share){
 
-    if(
-      navigator.share
-    ){
+    navigator.share({
 
-      await navigator.share(
-        shareData
-      );
+      title:
+        "Passive Income & Capital Preservation Simulator",
 
+      text:
+        shareText,
 
-      return;
-    }
+      url:
+        canonicalURL
 
-
-    if(
-      navigator.clipboard
-    ){
-
-      await navigator.clipboard.writeText(
-        shareUrl
-      );
-
-
-      alert(
-        "Simulator link copied."
-      );
-
-
-      return;
-    }
-
-
-    window.prompt(
-      "Copy this simulator link:",
-      shareUrl
+    }).catch(
+      function(){}
     );
 
+    return;
   }
-  catch(error){
 
-    if(
-      !error ||
-      error.name !==
-      "AbortError"
-    ){
 
-      window.prompt(
-        "Copy this simulator link:",
-        shareUrl
+  if(navigator.clipboard){
+
+    navigator.clipboard
+      .writeText(shareText)
+      .then(
+        function(){
+
+          alert(
+            "Simulator link copied."
+          );
+        }
+      )
+      .catch(
+        function(){
+
+          prompt(
+            "Copy this simulator link:",
+            canonicalURL
+          );
+        }
       );
-    }
+
+    return;
   }
+
+
+  prompt(
+    "Copy this simulator link:",
+    canonicalURL
+  );
 }
 
 
 /* =========================================================
-   INITIAL LOAD
+   INITIALISE
 ========================================================= */
 
-function initialiseSimulator(){
+function initializeSimulator(){
 
-  /*
-    Fresh-load strategy:
-    OPTION 1 — MAXIMUM INCOME
-  */
-
-  selectedStrategy =
+  currentStrategy =
     "max";
 
 
-  /*
-    Default capital:
-    RM1,000,000
-  */
+  assumptionsDirty =
+    false;
+
+
+  monthlyManuallyEdited =
+    false;
+
+
+  treatmentDirty =
+    false;
+
+
+  setStrategyHighlight();
+
 
   el("capital").value =
     "1,000,000.00";
@@ -3347,7 +2849,7 @@ function initialiseSimulator(){
 
 
   el("inflation").value =
-    "0.0300";
+    "0.030";
 
 
   el("years").value =
@@ -3355,63 +2857,20 @@ function initialiseSimulator(){
 
 
   /*
-    Distribution escalation OFF by default.
+    Distribution escalation is OFF by default.
 
-    Inflation itself is still fully applied to
-    purchasing-power calculations.
+    Inflation still applies to all purchasing-power
+    calculations regardless of this checkbox.
   */
 
   el("escalate").checked =
     false;
 
 
-  setStrategyAppearance();
+  applyStrategyDefaultDistribution();
 
-
-  loadStrategyDefaults();
-
-
-  recalculate();
+  calculateProjection();
 }
-
-
-/* =========================================================
-   DIRECT BUTTON FUNCTIONS
-========================================================= */
-
-window.chooseStrategy =
-  chooseStrategy;
-
-
-window.moneyFocus =
-  moneyFocus;
-
-
-window.moneyBlur =
-  moneyBlur;
-
-
-window.recalculate =
-  recalculate;
-
-
-window.resetStrategyDefaults =
-  resetStrategyDefaults;
-
-
-window.exportCSV =
-  exportCSV;
-
-
-window.shareSimulator =
-  shareSimulator;
-
-
-/* =========================================================
-   START
-========================================================= */
-
-initialiseSimulator();
 
 </script>
 
