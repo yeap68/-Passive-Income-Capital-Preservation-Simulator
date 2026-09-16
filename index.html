@@ -231,17 +231,26 @@ select:focus{
   border-color:var(--blue);
 }
 
+/* Prevent iPhone Safari from zooming input fields */
+
+@media(max-width:760px){
+  input,
+  select{
+    font-size:20px;
+  }
+}
+
 .helper{
   color:var(--muted);
   margin-top:8px;
   font-size:16px;
 }
 
-/* NEW CUSTOM PERCENTAGE INPUT */
+/* CUSTOM PERCENTAGE FIELDS */
 
 .custom-rate-wrap{
   display:none;
-  margin-top:12px;
+  margin-top:14px;
 }
 
 .custom-rate-wrap.show{
@@ -262,15 +271,15 @@ select:focus{
   top:50%;
   transform:translateY(-50%);
   color:var(--muted);
-  font-size:21px;
+  font-size:22px;
   pointer-events:none;
 }
 
 .custom-error{
+  display:none;
   color:#ff9c9c;
   font-size:14px;
   margin-top:7px;
-  display:none;
 }
 
 .custom-error.show{
@@ -650,79 +659,79 @@ details p{
 
 <div class="market-panel">
 
-  <div class="market-title">
-    Market reference
-  </div>
+<div class="market-title">
+  Market reference
+</div>
 
-  <div class="market-grid">
+<div class="market-grid">
 
-    <div class="market-item">
+<div class="market-item">
 
-      <div class="market-label">
-        10Y MGS benchmark yield
-      </div>
+<div class="market-label">
+  10Y MGS benchmark yield
+</div>
 
-      <div class="market-value">
-        4.17%
-      </div>
+<div class="market-value">
+  4.17%
+</div>
 
-      <div class="market-source">
-        BNM close · 15 Sep 2026
-      </div>
+<div class="market-source">
+  BNM close · 15 Sep 2026
+</div>
 
-    </div>
-
-
-    <div class="market-item">
-
-      <div class="market-label">
-        Latest Malaysia CPI inflation YoY
-      </div>
-
-      <div class="market-value">
-        1.80%
-      </div>
-
-      <div class="market-source">
-        DOSM · Jul 2026
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="market-divider"></div>
+<div class="market-item">
+
+<div class="market-label">
+  Latest Malaysia CPI inflation YoY
+</div>
+
+<div class="market-value">
+  1.80%
+</div>
+
+<div class="market-source">
+  DOSM · Jul 2026
+</div>
+
+</div>
+
+</div>
 
 
-  <div class="assumption-title">
-    Simulation assumptions
-  </div>
+<div class="market-divider"></div>
 
 
-  <div class="market-assumptions">
-
-    <div class="market-assumption">
-      Expected return:
-      <strong>4.17%</strong>
-      — initially referenced to the 10Y MGS benchmark yield
-    </div>
-
-    <div class="market-assumption">
-      Long-term average inflation:
-      <strong>3.00%</strong>
-      — planning assumption
-    </div>
-
-  </div>
+<div class="assumption-title">
+  Simulation assumptions
+</div>
 
 
-  <p class="market-explanation">
-    Market reference figures describe current conditions.
-    Simulation assumptions are forward-looking planning inputs
-    and remain constant over the selected projection period
-    unless changed by the user.
-  </p>
+<div class="market-assumptions">
+
+<div class="market-assumption">
+  Expected return:
+  <strong>4.17%</strong>
+  — initially referenced to the 10Y MGS benchmark yield
+</div>
+
+<div class="market-assumption">
+  Long-term average inflation:
+  <strong>3.00%</strong>
+  — planning assumption
+</div>
+
+</div>
+
+
+<p class="market-explanation">
+  Market reference figures describe current conditions.
+  Simulation assumptions are forward-looking planning inputs
+  and remain constant over the selected projection period
+  unless changed by the user.
+</p>
 
 </div>
 
@@ -742,14 +751,14 @@ details p{
   class="strategy active"
   onclick="selectStrategy('max')">
 
-  <div class="strategy-title">
-    Maximum Distribution
-  </div>
+<div class="strategy-title">
+  Maximum Distribution
+</div>
 
-  <div class="strategy-desc">
-    Maximise current distributions while targeting preservation
-    of starting nominal capital.
-  </div>
+<div class="strategy-desc">
+  Maximise current distributions while targeting preservation
+  of starting nominal capital.
+</div>
 
 </button>
 
@@ -760,14 +769,14 @@ details p{
   class="strategy"
   onclick="selectStrategy('real')">
 
-  <div class="strategy-title">
-    Preserve Real Capital
-  </div>
+<div class="strategy-title">
+  Preserve Real Capital
+</div>
 
-  <div class="strategy-desc">
-    Calculate a distribution level designed to preserve the
-    purchasing power of starting capital over the selected horizon.
-  </div>
+<div class="strategy-desc">
+  Calculate a distribution level designed to preserve the
+  purchasing power of starting capital over the selected horizon.
+</div>
 
 </button>
 
@@ -778,14 +787,14 @@ details p{
   class="strategy"
   onclick="selectStrategy('balanced')">
 
-  <div class="strategy-title">
-    Balanced
-  </div>
+<div class="strategy-title">
+  Balanced
+</div>
 
-  <div class="strategy-desc">
-    Generate meaningful distributions while retaining part of
-    portfolio return for capital growth.
-  </div>
+<div class="strategy-desc">
+  Generate meaningful distributions while retaining part of
+  portfolio return for capital growth.
+</div>
 
 </button>
 
@@ -884,39 +893,40 @@ details p{
   id="customReturnWrap"
   class="custom-rate-wrap">
 
-  <label for="customReturn">
-    Custom annual return
-  </label>
+<label for="customReturn">
+  Custom annual return
+</label>
 
-  <div class="custom-percent-box">
+<div class="custom-percent-box">
 
-    <input
-      id="customReturn"
-      type="number"
-      inputmode="decimal"
-      step="0.01"
-      min="-20"
-      max="30"
-      value="4.17"
-      oninput="markAssumptionsDirty();clearCustomError('return')">
+<input
+  id="customReturn"
+  type="text"
+  inputmode="decimal"
+  value="4.17"
+  autocomplete="off"
+  autocapitalize="off"
+  spellcheck="false"
+  oninput="markAssumptionsDirty();clearCustomError('return')"
+  onfocus="customPercentFocus(this)">
 
-    <span class="percent-symbol">
-      %
-    </span>
+<span class="percent-symbol">
+  %
+</span>
 
-  </div>
+</div>
 
-  <div
-    id="customReturnError"
-    class="custom-error">
 
-    Enter a return between -20% and 30%.
+<div
+  id="customReturnError"
+  class="custom-error">
+  Enter a return between -20% and 30%.
+</div>
 
-  </div>
 
-  <div class="helper">
-    Example: enter 4.28 for a 4.28% annual return.
-  </div>
+<div class="helper">
+  Example: enter 4.28 for a 4.28% annual return.
+</div>
 
 </div>
 
@@ -986,39 +996,40 @@ details p{
   id="customInflationWrap"
   class="custom-rate-wrap">
 
-  <label for="customInflation">
-    Custom long-term inflation
-  </label>
+<label for="customInflation">
+  Custom long-term inflation
+</label>
 
-  <div class="custom-percent-box">
+<div class="custom-percent-box">
 
-    <input
-      id="customInflation"
-      type="number"
-      inputmode="decimal"
-      step="0.01"
-      min="-20"
-      max="30"
-      value="3.00"
-      oninput="markAssumptionsDirty();clearCustomError('inflation')">
+<input
+  id="customInflation"
+  type="text"
+  inputmode="decimal"
+  value="3.00"
+  autocomplete="off"
+  autocapitalize="off"
+  spellcheck="false"
+  oninput="markAssumptionsDirty();clearCustomError('inflation')"
+  onfocus="customPercentFocus(this)">
 
-    <span class="percent-symbol">
-      %
-    </span>
+<span class="percent-symbol">
+  %
+</span>
 
-  </div>
+</div>
 
-  <div
-    id="customInflationError"
-    class="custom-error">
 
-    Enter an inflation rate between -20% and 30%.
+<div
+  id="customInflationError"
+  class="custom-error">
+  Enter an inflation rate between -20% and 30%.
+</div>
 
-  </div>
 
-  <div class="helper">
-    Example: enter 2.65 for a 2.65% long-term average inflation assumption.
-  </div>
+<div class="helper">
+  Example: enter 2.65 for a 2.65% long-term average inflation assumption.
+</div>
 
 </div>
 
@@ -1127,6 +1138,7 @@ details p{
 
 </div>
 
+
 <div class="check-note">
   Increase the monthly distribution annually by the selected
   inflation rate. This may accelerate capital depletion.
@@ -1161,6 +1173,7 @@ details p{
 
 <h2>3. Projection</h2>
 
+
 <div class="assumption-pills">
 
 <div class="pill">
@@ -1191,64 +1204,96 @@ details p{
 
 <div class="metrics">
 
+
 <div class="metric">
+
 <div class="metric-label">
   Initial capital
 </div>
-<div class="metric-value" id="initialMetric">
+
+<div
+  class="metric-value"
+  id="initialMetric">
   RM1,000,000
 </div>
+
 </div>
 
 
 <div class="metric">
+
 <div class="metric-label">
   Starting monthly distribution
 </div>
-<div class="metric-value" id="monthlyMetric">
+
+<div
+  class="metric-value"
+  id="monthlyMetric">
   RM3,410
 </div>
+
 </div>
 
 
 <div class="metric">
+
 <div class="metric-label">
   Ending capital — nominal
 </div>
-<div class="metric-value" id="endingMetric">
+
+<div
+  class="metric-value"
+  id="endingMetric">
   RM1,000,000
 </div>
+
 </div>
 
 
 <div class="metric">
+
 <div class="metric-label">
   Ending purchasing power — today's RM
 </div>
-<div class="metric-value" id="realMetric">
+
+<div
+  class="metric-value"
+  id="realMetric">
   RM744,094
 </div>
+
 </div>
 
 
 <div class="metric">
+
 <div class="metric-label">
   Total distributions
 </div>
-<div class="metric-value" id="totalMetric">
+
+<div
+  class="metric-value"
+  id="totalMetric">
   RM409,236
 </div>
+
 </div>
 
 
 <div class="metric">
+
 <div class="metric-label">
   Monthly distribution in final year
 </div>
-<div class="metric-value" id="finalMonthlyMetric">
+
+<div
+  class="metric-value"
+  id="finalMonthlyMetric">
   RM3,410
 </div>
+
 </div>
+
 
 </div>
 
@@ -1256,14 +1301,19 @@ details p{
 <div
   id="statusBox"
   class="status warn">
+
   Nominal capital preserved
+
 </div>
+
 
 <p
   id="statusText"
   class="status-text">
+
   The portfolio approximately preserves its ringgit balance,
   but inflation reduces its purchasing power over time.
+
 </p>
 
 </section>
@@ -1279,16 +1329,30 @@ details p{
 <div id="chart"></div>
 </div>
 
+
 <div class="legend">
 
 <div class="legend-item">
-<span class="dot" style="background:#4d8df7"></span>
+
+<span
+  class="dot"
+  style="background:#4d8df7">
+</span>
+
 Nominal capital
+
 </div>
 
+
 <div class="legend-item">
-<span class="dot" style="background:#34c98f"></span>
+
+<span
+  class="dot"
+  style="background:#34c98f">
+</span>
+
 Capital in today's RM
+
 </div>
 
 </div>
@@ -1307,13 +1371,21 @@ Capital in today's RM
 <table>
 
 <thead>
+
 <tr>
+
 <th>Year</th>
+
 <th>Ending capital</th>
+
 <th>Capital in today's RM</th>
+
 <th>Monthly distribution</th>
+
 <th>Distribution in today's RM</th>
+
 </tr>
+
 </thead>
 
 <tbody id="projectionTable"></tbody>
@@ -1329,21 +1401,29 @@ Capital in today's RM
   type="button"
   class="action"
   onclick="exportCSV()">
+
   Export CSV
+
 </button>
+
 
 <button
   type="button"
   class="action"
   onclick="window.print()">
+
   Print / Save PDF
+
 </button>
+
 
 <button
   type="button"
   class="action"
   onclick="shareSimulator()">
+
   Share simulator
+
 </button>
 
 </div>
@@ -1385,8 +1465,8 @@ Capital in today's RM
 </p>
 
 <p>
-  The return and inflation selectors also allow custom percentage
-  assumptions for scenario and stress testing.
+  Custom return and inflation assumptions may also be entered
+  manually for scenario and stress testing.
 </p>
 
 </details>
@@ -1464,10 +1544,14 @@ Capital in today's RM
 
 <p>
   Preserving
-  <span id="methodCapital1">RM1,000,000</span>
+  <span id="methodCapital1">
+    RM1,000,000
+  </span>
   nominally is therefore different from preserving the
   purchasing power of
-  <span id="methodCapital2">RM1,000,000</span>.
+  <span id="methodCapital2">
+    RM1,000,000
+  </span>.
 </p>
 
 </details>
@@ -1522,27 +1606,36 @@ Capital in today's RM
   7. Reference points
 </h2>
 
+
 <p class="reference">
+
   Malaysian Government Securities benchmark yield information:
 
   <a
     href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
     target="_blank"
     rel="noopener">
+
     Bank Negara Malaysia
+
   </a>
+
 </p>
 
 
 <p class="reference">
+
   Malaysian consumer price information:
 
   <a
     href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-july-2026"
     target="_blank"
     rel="noopener">
+
     Department of Statistics Malaysia
+
   </a>
+
 </p>
 
 
@@ -1588,7 +1681,9 @@ var lastRows = [];
 ========================================================= */
 
 function el(id){
+
   return document.getElementById(id);
+
 }
 
 
@@ -1600,12 +1695,15 @@ function parseMoney(value){
     .replace(/,/g,"")
     .replace(/\s/g,"");
 
+
   var number =
     Number(cleaned);
+
 
   return isFinite(number)
     ? number
     : 0;
+
 }
 
 
@@ -1614,6 +1712,7 @@ function money0(value){
   return "RM" +
     Math.round(value)
     .toLocaleString("en-MY");
+
 }
 
 
@@ -1628,6 +1727,7 @@ function money2(value){
         maximumFractionDigits:2
       }
     );
+
 }
 
 
@@ -1641,6 +1741,7 @@ function inputMoney(value){
         maximumFractionDigits:2
       }
     );
+
 }
 
 
@@ -1649,6 +1750,7 @@ function percent(value){
   return (value * 100)
     .toFixed(2) +
     "%";
+
 }
 
 
@@ -1657,10 +1759,13 @@ function moneyFocus(input){
   var value =
     parseMoney(input.value);
 
+
   input.value =
     value.toFixed(2);
 
+
   input.select();
+
 }
 
 
@@ -1669,10 +1774,35 @@ function moneyBlur(input){
   var value =
     parseMoney(input.value);
 
+
   input.value =
     inputMoney(value);
 
+
   updateHelpers();
+
+}
+
+
+function customPercentFocus(input){
+
+  /*
+    iPhone-friendly custom percentage input.
+    Selecting the field should display the decimal keyboard.
+  */
+
+  input.focus();
+
+
+  setTimeout(
+    function(){
+
+      input.select();
+
+    },
+    10
+  );
+
 }
 
 
@@ -1683,17 +1813,21 @@ function updateHelpers(){
       el("capital").value
     );
 
+
   var monthly =
     parseMoney(
       el("monthly").value
     );
 
+
   el("capitalHelper").textContent =
     money0(capital);
+
 
   el("monthlyHelper").textContent =
     money2(monthly) +
     " per month";
+
 }
 
 
@@ -1704,63 +1838,181 @@ function updateHelpers(){
 function handleReturnSelection(){
 
   var custom =
-    el("rate").value === "custom";
+    el("rate").value ===
+    "custom";
+
 
   el("customReturnWrap")
     .classList
-    .toggle("show",custom);
+    .toggle(
+      "show",
+      custom
+    );
 
-  clearCustomError("return");
+
+  clearCustomError(
+    "return"
+  );
+
 
   markAssumptionsDirty();
+
+
+  /*
+    On iPhone the native select menu must finish closing before
+    we attempt to focus the newly revealed text field.
+  */
+
+  if(custom){
+
+    setTimeout(
+      function(){
+
+        var input =
+          el("customReturn");
+
+
+        if(input){
+
+          input.focus();
+
+          input.select();
+
+        }
+
+      },
+      350
+    );
+
+  }
+
 }
 
 
 function handleInflationSelection(){
 
   var custom =
-    el("inflation").value === "custom";
+    el("inflation").value ===
+    "custom";
+
 
   el("customInflationWrap")
     .classList
-    .toggle("show",custom);
+    .toggle(
+      "show",
+      custom
+    );
 
-  clearCustomError("inflation");
+
+  clearCustomError(
+    "inflation"
+  );
+
 
   markAssumptionsDirty();
+
+
+  if(custom){
+
+    setTimeout(
+      function(){
+
+        var input =
+          el("customInflation");
+
+
+        if(input){
+
+          input.focus();
+
+          input.select();
+
+        }
+
+      },
+      350
+    );
+
+  }
+
 }
 
 
 function clearCustomError(type){
 
-  if(type === "return"){
+  if(
+    type ===
+    "return"
+  ){
 
     el("customReturnError")
       .classList
-      .remove("show");
+      .remove(
+        "show"
+      );
 
   }else{
 
     el("customInflationError")
       .classList
-      .remove("show");
+      .remove(
+        "show"
+      );
 
   }
+
 }
 
 
+/*
+  Read a manually entered percentage.
+
+  Examples:
+
+  4.28  -> 4.28
+  2.65  -> 2.65
+  -1.00 -> -1.00
+
+  Conversion to decimal form occurs later:
+  4.28 / 100 = 0.0428
+*/
+
 function readCustomPercent(id){
 
-  var value =
-    Number(
+  var raw =
+    String(
       el(id).value
-    );
+    )
+    .replace(/%/g,"")
+    .replace(/,/g,"")
+    .replace(/\s/g,"")
+    .trim();
 
-  if(!isFinite(value)){
+
+  if(
+    raw === ""
+  ){
+
     return null;
+
   }
 
+
+  var value =
+    Number(raw);
+
+
+  if(
+    !isFinite(value)
+  ){
+
+    return null;
+
+  }
+
+
   return value;
+
 }
 
 
@@ -1780,6 +2032,7 @@ function validateCustomInputs(){
         "customReturn"
       );
 
+
     if(
       customReturn === null ||
       customReturn < -20 ||
@@ -1788,7 +2041,10 @@ function validateCustomInputs(){
 
       el("customReturnError")
         .classList
-        .add("show");
+        .add(
+          "show"
+        );
+
 
       valid =
         false;
@@ -1800,6 +2056,7 @@ function validateCustomInputs(){
       );
 
     }
+
   }
 
 
@@ -1813,6 +2070,7 @@ function validateCustomInputs(){
         "customInflation"
       );
 
+
     if(
       customInflation === null ||
       customInflation < -20 ||
@@ -1821,7 +2079,10 @@ function validateCustomInputs(){
 
       el("customInflationError")
         .classList
-        .add("show");
+        .add(
+          "show"
+        );
+
 
       valid =
         false;
@@ -1833,10 +2094,12 @@ function validateCustomInputs(){
       );
 
     }
+
   }
 
 
   return valid;
+
 }
 
 
@@ -1852,13 +2115,17 @@ function getAnnualReturn(){
         "customReturn"
       );
 
+
     return custom /
       100;
+
   }
+
 
   return Number(
     el("rate").value
   );
+
 }
 
 
@@ -1874,13 +2141,17 @@ function getInflationRate(){
         "customInflation"
       );
 
+
     return custom /
       100;
+
   }
+
 
   return Number(
     el("inflation").value
   );
+
 }
 
 
@@ -1889,17 +2160,26 @@ function getInflationRate(){
 ========================================================= */
 
 function markAssumptionsDirty(){
-  assumptionsDirty = true;
+
+  assumptionsDirty =
+    true;
+
 }
 
 
 function markMonthlyManual(){
-  monthlyManuallyEdited = true;
+
+  monthlyManuallyEdited =
+    true;
+
 }
 
 
 function markTreatmentDirty(){
-  treatmentDirty = true;
+
+  treatmentDirty =
+    true;
+
 }
 
 
@@ -1936,6 +2216,7 @@ function getInputs(){
       el("escalate").checked
 
   };
+
 }
 
 
@@ -1949,6 +2230,7 @@ function monthlyRate(annualRate){
     1 + annualRate,
     1 / 12
   ) - 1;
+
 }
 
 
@@ -1968,16 +2250,20 @@ function simulate(
   var balance =
     capital;
 
+
   var mr =
     monthlyRate(
       annualRate
     );
 
+
   var payment =
     startingMonthly;
 
+
   var total =
     0;
+
 
   var rows =
     [];
@@ -1991,6 +2277,7 @@ function simulate(
 
     var yearDistributions =
       0;
+
 
     var monthlyForYear =
       payment;
@@ -2006,8 +2293,12 @@ function simulate(
         balance <= 0
       ){
 
-        balance = 0;
+        balance =
+          0;
+
+
         break;
+
       }
 
 
@@ -2036,6 +2327,7 @@ function simulate(
 
       total +=
         actualPayment;
+
     }
 
 
@@ -2075,6 +2367,7 @@ function simulate(
 
       realMonthlyDistribution:
         realMonthly
+
     });
 
 
@@ -2086,6 +2379,7 @@ function simulate(
       payment =
         payment *
         (1 + inflation);
+
     }
 
 
@@ -2123,10 +2417,14 @@ function simulate(
             0
 
         });
+
       }
 
+
       break;
+
     }
+
   }
 
 
@@ -2151,7 +2449,9 @@ function simulate(
 
     rows:
       rows
+
   };
+
 }
 
 
@@ -2165,7 +2465,10 @@ function maximumDistribution(
 ){
 
   return capital *
-    monthlyRate(rate);
+    monthlyRate(
+      rate
+    );
+
 }
 
 
@@ -2176,8 +2479,13 @@ function balancedDistribution(
   return capital *
     0.024 /
     12;
+
 }
 
+
+/* =========================================================
+   PRESERVE REAL CAPITAL
+========================================================= */
 
 function preserveRealCapitalDistribution(
   capital,
@@ -2212,11 +2520,13 @@ function preserveRealCapitalDistribution(
   ){
 
     return 0;
+
   }
 
 
   var low =
     0;
+
 
   var high =
     Math.max(
@@ -2232,7 +2542,10 @@ function preserveRealCapitalDistribution(
   ){
 
     var mid =
-      (low + high) /
+      (
+        low +
+        high
+      ) /
       2;
 
 
@@ -2259,13 +2572,18 @@ function preserveRealCapitalDistribution(
 
       high =
         mid;
+
     }
+
   }
 
 
   return (
-    low + high
-  ) / 2;
+    low +
+    high
+  ) /
+  2;
+
 }
 
 
@@ -2288,6 +2606,7 @@ function strategyDefaultDistribution(){
       v.capital,
       v.rate
     );
+
   }
 
 
@@ -2299,6 +2618,7 @@ function strategyDefaultDistribution(){
     return balancedDistribution(
       v.capital
     );
+
   }
 
 
@@ -2309,6 +2629,7 @@ function strategyDefaultDistribution(){
     v.years,
     v.escalate
   );
+
 }
 
 
@@ -2319,10 +2640,13 @@ function applyStrategyDefaultDistribution(){
 
 
   el("monthly").value =
-    inputMoney(monthly);
+    inputMoney(
+      monthly
+    );
 
 
   updateHelpers();
+
 }
 
 
@@ -2336,7 +2660,8 @@ function setStrategyHighlight(){
     .classList
     .toggle(
       "active",
-      currentStrategy === "max"
+      currentStrategy ===
+      "max"
     );
 
 
@@ -2344,7 +2669,8 @@ function setStrategyHighlight(){
     .classList
     .toggle(
       "active",
-      currentStrategy === "real"
+      currentStrategy ===
+      "real"
     );
 
 
@@ -2352,8 +2678,10 @@ function setStrategyHighlight(){
     .classList
     .toggle(
       "active",
-      currentStrategy === "balanced"
+      currentStrategy ===
+      "balanced"
     );
+
 }
 
 
@@ -2362,7 +2690,9 @@ function selectStrategy(strategy){
   if(
     !validateCustomInputs()
   ){
+
     return;
+
   }
 
 
@@ -2372,6 +2702,11 @@ function selectStrategy(strategy){
 
   setStrategyHighlight();
 
+
+  /*
+    Each newly selected strategy starts with distribution
+    escalation OFF.
+  */
 
   el("escalate").checked =
     false;
@@ -2393,6 +2728,7 @@ function selectStrategy(strategy){
 
 
   calculateProjection();
+
 }
 
 
@@ -2402,12 +2738,23 @@ function selectStrategy(strategy){
 
 function recalculate(){
 
+  /*
+    Validate custom percentage fields before applying
+    any changes.
+  */
+
   if(
     !validateCustomInputs()
   ){
+
     return;
+
   }
 
+
+  /*
+    Reformat capital.
+  */
 
   var capital =
     parseMoney(
@@ -2416,8 +2763,14 @@ function recalculate(){
 
 
   el("capital").value =
-    inputMoney(capital);
+    inputMoney(
+      capital
+    );
 
+
+  /*
+    Reformat monthly distribution.
+  */
 
   var monthly =
     parseMoney(
@@ -2426,15 +2779,18 @@ function recalculate(){
 
 
   el("monthly").value =
-    inputMoney(monthly);
+    inputMoney(
+      monthly
+    );
 
 
   /*
-    Custom return and inflation values are treated exactly like
-    preset values.
+    Recompute the strategy default if assumptions changed,
+    but only when the monthly distribution has not been
+    manually overridden.
 
-    The strategy default is recomputed only if assumptions changed
-    and the monthly distribution has not been manually overridden.
+    This applies equally to preset and custom return /
+    inflation assumptions.
   */
 
   if(
@@ -2446,6 +2802,7 @@ function recalculate(){
   ){
 
     applyStrategyDefaultDistribution();
+
   }
 
 
@@ -2461,6 +2818,7 @@ function recalculate(){
 
   treatmentDirty =
     false;
+
 }
 
 
@@ -2582,6 +2940,7 @@ function calculateProjection(){
     v.capital,
     result.rows
   );
+
 }
 
 
@@ -2597,6 +2956,7 @@ function updateStatus(
 
   var box =
     el("statusBox");
+
 
   var text =
     el("statusText");
@@ -2624,6 +2984,7 @@ function updateStatus(
 
 
     return;
+
   }
 
 
@@ -2646,6 +3007,7 @@ function updateStatus(
 
 
     return;
+
   }
 
 
@@ -2668,6 +3030,7 @@ function updateStatus(
 
 
     return;
+
   }
 
 
@@ -2682,6 +3045,7 @@ function updateStatus(
 
   text.textContent =
     "The selected distribution level reduces the nominal capital balance and its inflation-adjusted purchasing power.";
+
 }
 
 
@@ -2693,6 +3057,7 @@ function renderTable(rows){
 
   var tbody =
     el("projectionTable");
+
 
   var html =
     "";
@@ -2734,12 +3099,14 @@ function renderTable(rows){
         "</td>" +
 
         "</tr>";
+
     }
   );
 
 
   tbody.innerHTML =
     html;
+
 }
 
 
@@ -2759,9 +3126,14 @@ function renderChart(
   var data =
     [
       {
-        year:0,
-        nominal:initialCapital,
-        real:initialCapital
+        year:
+          0,
+
+        nominal:
+          initialCapital,
+
+        real:
+          initialCapital
       }
     ];
 
@@ -2781,6 +3153,7 @@ function renderChart(
           row.realCapital
 
       });
+
     }
   );
 
@@ -2788,25 +3161,32 @@ function renderChart(
   var width =
     900;
 
+
   var height =
     320;
+
 
   var left =
     75;
 
+
   var right =
     20;
+
 
   var top =
     20;
 
+
   var bottom =
     48;
+
 
   var plotWidth =
     width -
     left -
     right;
+
 
   var plotHeight =
     height -
@@ -2830,6 +3210,7 @@ function renderChart(
           d.nominal,
           d.real
         );
+
     }
   );
 
@@ -2843,7 +3224,9 @@ function renderChart(
     if(
       data.length <= 1
     ){
+
       return left;
+
     }
 
 
@@ -2851,8 +3234,10 @@ function renderChart(
       index *
       plotWidth /
       (
-        data.length - 1
+        data.length -
+        1
       );
+
   }
 
 
@@ -2865,6 +3250,7 @@ function renderChart(
         value /
         maxValue
       );
+
   }
 
 
@@ -2889,9 +3275,11 @@ function renderChart(
             y(d[key])
               .toFixed(1)
           );
+
         }
       )
       .join(" ");
+
   }
 
 
@@ -2934,6 +3322,7 @@ function renderChart(
       gridY +
       '" stroke="#263241" stroke-width="1"/>' +
 
+
       '<text x="' +
       (
         left -
@@ -2951,6 +3340,7 @@ function renderChart(
       ) +
 
       "</text>";
+
   }
 
 
@@ -2975,6 +3365,7 @@ function renderChart(
       labelIndexes.push(
         a
       );
+
     }
 
   }else{
@@ -3010,6 +3401,7 @@ function renderChart(
         data.length -
         1
       ];
+
   }
 
 
@@ -3029,7 +3421,9 @@ function renderChart(
         unique.push(
           index
         );
+
       }
+
     }
   );
 
@@ -3056,6 +3450,7 @@ function renderChart(
         ) +
 
         "</text>";
+
     }
   );
 
@@ -3085,6 +3480,7 @@ function renderChart(
     labels +
 
     "</svg>";
+
 }
 
 
@@ -3107,14 +3503,17 @@ function shortRM(value){
     return "RM" +
       (
         millions >= 10
-          ? millions.toFixed(0)
-          : millions.toFixed(1)
+          ? millions
+              .toFixed(0)
+          : millions
+              .toFixed(1)
       )
       .replace(
         ".0",
         ""
       ) +
       "m";
+
   }
 
 
@@ -3129,6 +3528,7 @@ function shortRM(value){
         1000
       ) +
       "k";
+
   }
 
 
@@ -3136,6 +3536,7 @@ function shortRM(value){
     Math.round(
       value
     );
+
 }
 
 
@@ -3148,7 +3549,9 @@ function exportCSV(){
   if(
     !lastRows.length
   ){
+
     return;
+
   }
 
 
@@ -3191,7 +3594,9 @@ function exportCSV(){
           )
 
         ].join(",")
+
       );
+
     }
   );
 
@@ -3246,6 +3651,7 @@ function exportCSV(){
   URL.revokeObjectURL(
     url
   );
+
 }
 
 
@@ -3288,6 +3694,7 @@ function shareSimulator(){
 
 
     return;
+
   }
 
 
@@ -3305,6 +3712,7 @@ function shareSimulator(){
           alert(
             "Simulator link copied."
           );
+
         }
       )
       .catch(
@@ -3314,11 +3722,13 @@ function shareSimulator(){
             "Copy this simulator link:",
             canonicalURL
           );
+
         }
       );
 
 
     return;
+
   }
 
 
@@ -3326,6 +3736,7 @@ function shareSimulator(){
     "Copy this simulator link:",
     canonicalURL
   );
+
 }
 
 
@@ -3380,19 +3791,23 @@ function initializeSimulator(){
 
   el("customReturnWrap")
     .classList
-    .remove("show");
+    .remove(
+      "show"
+    );
 
 
   el("customInflationWrap")
     .classList
-    .remove("show");
+    .remove(
+      "show"
+    );
 
 
   /*
-    Distribution escalation remains OFF by default.
+    Distribution escalation is OFF by default.
 
-    Inflation still applies to real purchasing-power
-    calculations whether this checkbox is ON or OFF.
+    Inflation still applies to all real purchasing-power
+    calculations regardless of the checkbox.
   */
 
   el("escalate").checked =
@@ -3403,6 +3818,7 @@ function initializeSimulator(){
 
 
   calculateProjection();
+
 }
 
 </script>
