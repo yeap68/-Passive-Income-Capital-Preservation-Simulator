@@ -237,6 +237,46 @@ select:focus{
   font-size:16px;
 }
 
+/* NEW CUSTOM PERCENTAGE INPUT */
+
+.custom-rate-wrap{
+  display:none;
+  margin-top:12px;
+}
+
+.custom-rate-wrap.show{
+  display:block;
+}
+
+.custom-percent-box{
+  position:relative;
+}
+
+.custom-percent-box input{
+  padding-right:58px;
+}
+
+.percent-symbol{
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-size:21px;
+  pointer-events:none;
+}
+
+.custom-error{
+  color:#ff9c9c;
+  font-size:14px;
+  margin-top:7px;
+  display:none;
+}
+
+.custom-error.show{
+  display:block;
+}
+
 .check-wrap{
   display:flex;
   gap:16px;
@@ -801,7 +841,7 @@ details p{
 
 <select
   id="rate"
-  onchange="markAssumptionsDirty()">
+  onchange="handleReturnSelection()">
 
 <option value="0.0300">
   3.00%
@@ -833,7 +873,53 @@ details p{
   6.00%
 </option>
 
+<option value="custom">
+  Custom return rate…
+</option>
+
 </select>
+
+
+<div
+  id="customReturnWrap"
+  class="custom-rate-wrap">
+
+  <label for="customReturn">
+    Custom annual return
+  </label>
+
+  <div class="custom-percent-box">
+
+    <input
+      id="customReturn"
+      type="number"
+      inputmode="decimal"
+      step="0.01"
+      min="-20"
+      max="30"
+      value="4.17"
+      oninput="markAssumptionsDirty();clearCustomError('return')">
+
+    <span class="percent-symbol">
+      %
+    </span>
+
+  </div>
+
+  <div
+    id="customReturnError"
+    class="custom-error">
+
+    Enter a return between -20% and 30%.
+
+  </div>
+
+  <div class="helper">
+    Example: enter 4.28 for a 4.28% annual return.
+  </div>
+
+</div>
+
 
 <div class="helper">
   Current default is referenced to the 10Y MGS benchmark
@@ -853,7 +939,7 @@ details p{
 
 <select
   id="inflation"
-  onchange="markAssumptionsDirty()">
+  onchange="handleInflationSelection()">
 
 <option value="0.015">
   1.50%
@@ -889,7 +975,53 @@ details p{
   5.00%
 </option>
 
+<option value="custom">
+  Custom inflation rate…
+</option>
+
 </select>
+
+
+<div
+  id="customInflationWrap"
+  class="custom-rate-wrap">
+
+  <label for="customInflation">
+    Custom long-term inflation
+  </label>
+
+  <div class="custom-percent-box">
+
+    <input
+      id="customInflation"
+      type="number"
+      inputmode="decimal"
+      step="0.01"
+      min="-20"
+      max="30"
+      value="3.00"
+      oninput="markAssumptionsDirty();clearCustomError('inflation')">
+
+    <span class="percent-symbol">
+      %
+    </span>
+
+  </div>
+
+  <div
+    id="customInflationError"
+    class="custom-error">
+
+    Enter an inflation rate between -20% and 30%.
+
+  </div>
+
+  <div class="helper">
+    Example: enter 2.65 for a 2.65% long-term average inflation assumption.
+  </div>
+
+</div>
+
 
 <div class="helper">
   This is an assumed compound average over the projection
@@ -1005,8 +1137,6 @@ details p{
 </div>
 
 
-<!-- RECALCULATE ONLY -->
-
 <div class="button-row">
 
 <button
@@ -1030,7 +1160,6 @@ details p{
 <div class="projection-head">
 
 <h2>3. Projection</h2>
-
 
 <div class="assumption-pills">
 
@@ -1062,96 +1191,64 @@ details p{
 
 <div class="metrics">
 
-
 <div class="metric">
-
 <div class="metric-label">
   Initial capital
 </div>
-
-<div
-  class="metric-value"
-  id="initialMetric">
+<div class="metric-value" id="initialMetric">
   RM1,000,000
 </div>
-
 </div>
 
 
 <div class="metric">
-
 <div class="metric-label">
   Starting monthly distribution
 </div>
-
-<div
-  class="metric-value"
-  id="monthlyMetric">
+<div class="metric-value" id="monthlyMetric">
   RM3,410
 </div>
-
 </div>
 
 
 <div class="metric">
-
 <div class="metric-label">
   Ending capital — nominal
 </div>
-
-<div
-  class="metric-value"
-  id="endingMetric">
+<div class="metric-value" id="endingMetric">
   RM1,000,000
 </div>
-
 </div>
 
 
 <div class="metric">
-
 <div class="metric-label">
   Ending purchasing power — today's RM
 </div>
-
-<div
-  class="metric-value"
-  id="realMetric">
+<div class="metric-value" id="realMetric">
   RM744,094
 </div>
-
 </div>
 
 
 <div class="metric">
-
 <div class="metric-label">
   Total distributions
 </div>
-
-<div
-  class="metric-value"
-  id="totalMetric">
+<div class="metric-value" id="totalMetric">
   RM409,236
 </div>
-
 </div>
 
 
 <div class="metric">
-
 <div class="metric-label">
   Monthly distribution in final year
 </div>
-
-<div
-  class="metric-value"
-  id="finalMonthlyMetric">
+<div class="metric-value" id="finalMonthlyMetric">
   RM3,410
 </div>
-
 </div>
-
 
 </div>
 
@@ -1159,19 +1256,14 @@ details p{
 <div
   id="statusBox"
   class="status warn">
-
   Nominal capital preserved
-
 </div>
-
 
 <p
   id="statusText"
   class="status-text">
-
   The portfolio approximately preserves its ringgit balance,
   but inflation reduces its purchasing power over time.
-
 </p>
 
 </section>
@@ -1184,35 +1276,19 @@ details p{
 <h2>4. Capital path</h2>
 
 <div class="chart-wrap">
-
 <div id="chart"></div>
-
 </div>
-
 
 <div class="legend">
 
 <div class="legend-item">
-
-<span
-  class="dot"
-  style="background:#4d8df7">
-</span>
-
+<span class="dot" style="background:#4d8df7"></span>
 Nominal capital
-
 </div>
 
-
 <div class="legend-item">
-
-<span
-  class="dot"
-  style="background:#34c98f">
-</span>
-
+<span class="dot" style="background:#34c98f"></span>
 Capital in today's RM
-
 </div>
 
 </div>
@@ -1231,31 +1307,13 @@ Capital in today's RM
 <table>
 
 <thead>
-
 <tr>
-
-<th>
-  Year
-</th>
-
-<th>
-  Ending capital
-</th>
-
-<th>
-  Capital in today's RM
-</th>
-
-<th>
-  Monthly distribution
-</th>
-
-<th>
-  Distribution in today's RM
-</th>
-
+<th>Year</th>
+<th>Ending capital</th>
+<th>Capital in today's RM</th>
+<th>Monthly distribution</th>
+<th>Distribution in today's RM</th>
 </tr>
-
 </thead>
 
 <tbody id="projectionTable"></tbody>
@@ -1271,29 +1329,21 @@ Capital in today's RM
   type="button"
   class="action"
   onclick="exportCSV()">
-
   Export CSV
-
 </button>
-
 
 <button
   type="button"
   class="action"
   onclick="window.print()">
-
   Print / Save PDF
-
 </button>
-
 
 <button
   type="button"
   class="action"
   onclick="shareSimulator()">
-
   Share simulator
-
 </button>
 
 </div>
@@ -1332,6 +1382,11 @@ Capital in today's RM
   The long-term average inflation assumption represents an
   assumed compound average over the selected projection horizon.
   Actual annual inflation will vary.
+</p>
+
+<p>
+  The return and inflation selectors also allow custom percentage
+  assumptions for scenario and stress testing.
 </p>
 
 </details>
@@ -1409,14 +1464,10 @@ Capital in today's RM
 
 <p>
   Preserving
-  <span id="methodCapital1">
-    RM1,000,000
-  </span>
+  <span id="methodCapital1">RM1,000,000</span>
   nominally is therefore different from preserving the
   purchasing power of
-  <span id="methodCapital2">
-    RM1,000,000
-  </span>.
+  <span id="methodCapital2">RM1,000,000</span>.
 </p>
 
 </details>
@@ -1471,36 +1522,27 @@ Capital in today's RM
   7. Reference points
 </h2>
 
-
 <p class="reference">
-
   Malaysian Government Securities benchmark yield information:
 
   <a
     href="https://financialmarkets.bnm.gov.my/benchmark-yields?form=MG0AV3"
     target="_blank"
     rel="noopener">
-
     Bank Negara Malaysia
-
   </a>
-
 </p>
 
 
 <p class="reference">
-
   Malaysian consumer price information:
 
   <a
     href="https://www.dosm.gov.my/portal-main/release-content/consumer-price-index-july-2026"
     target="_blank"
     rel="noopener">
-
     Department of Statistics Malaysia
-
   </a>
-
 </p>
 
 
@@ -1546,9 +1588,7 @@ var lastRows = [];
 ========================================================= */
 
 function el(id){
-
   return document.getElementById(id);
-
 }
 
 
@@ -1560,15 +1600,12 @@ function parseMoney(value){
     .replace(/,/g,"")
     .replace(/\s/g,"");
 
-
   var number =
     Number(cleaned);
-
 
   return isFinite(number)
     ? number
     : 0;
-
 }
 
 
@@ -1577,7 +1614,6 @@ function money0(value){
   return "RM" +
     Math.round(value)
     .toLocaleString("en-MY");
-
 }
 
 
@@ -1592,7 +1628,6 @@ function money2(value){
         maximumFractionDigits:2
       }
     );
-
 }
 
 
@@ -1606,7 +1641,6 @@ function inputMoney(value){
         maximumFractionDigits:2
       }
     );
-
 }
 
 
@@ -1615,7 +1649,6 @@ function percent(value){
   return (value * 100)
     .toFixed(2) +
     "%";
-
 }
 
 
@@ -1624,13 +1657,10 @@ function moneyFocus(input){
   var value =
     parseMoney(input.value);
 
-
   input.value =
     value.toFixed(2);
 
-
   input.select();
-
 }
 
 
@@ -1639,13 +1669,10 @@ function moneyBlur(input){
   var value =
     parseMoney(input.value);
 
-
   input.value =
     inputMoney(value);
 
-
   updateHelpers();
-
 }
 
 
@@ -1656,21 +1683,204 @@ function updateHelpers(){
       el("capital").value
     );
 
-
   var monthly =
     parseMoney(
       el("monthly").value
     );
 
-
   el("capitalHelper").textContent =
     money0(capital);
-
 
   el("monthlyHelper").textContent =
     money2(monthly) +
     " per month";
+}
 
+
+/* =========================================================
+   CUSTOM RETURN / INFLATION
+========================================================= */
+
+function handleReturnSelection(){
+
+  var custom =
+    el("rate").value === "custom";
+
+  el("customReturnWrap")
+    .classList
+    .toggle("show",custom);
+
+  clearCustomError("return");
+
+  markAssumptionsDirty();
+}
+
+
+function handleInflationSelection(){
+
+  var custom =
+    el("inflation").value === "custom";
+
+  el("customInflationWrap")
+    .classList
+    .toggle("show",custom);
+
+  clearCustomError("inflation");
+
+  markAssumptionsDirty();
+}
+
+
+function clearCustomError(type){
+
+  if(type === "return"){
+
+    el("customReturnError")
+      .classList
+      .remove("show");
+
+  }else{
+
+    el("customInflationError")
+      .classList
+      .remove("show");
+
+  }
+}
+
+
+function readCustomPercent(id){
+
+  var value =
+    Number(
+      el(id).value
+    );
+
+  if(!isFinite(value)){
+    return null;
+  }
+
+  return value;
+}
+
+
+function validateCustomInputs(){
+
+  var valid =
+    true;
+
+
+  if(
+    el("rate").value ===
+    "custom"
+  ){
+
+    var customReturn =
+      readCustomPercent(
+        "customReturn"
+      );
+
+    if(
+      customReturn === null ||
+      customReturn < -20 ||
+      customReturn > 30
+    ){
+
+      el("customReturnError")
+        .classList
+        .add("show");
+
+      valid =
+        false;
+
+    }else{
+
+      clearCustomError(
+        "return"
+      );
+
+    }
+  }
+
+
+  if(
+    el("inflation").value ===
+    "custom"
+  ){
+
+    var customInflation =
+      readCustomPercent(
+        "customInflation"
+      );
+
+    if(
+      customInflation === null ||
+      customInflation < -20 ||
+      customInflation > 30
+    ){
+
+      el("customInflationError")
+        .classList
+        .add("show");
+
+      valid =
+        false;
+
+    }else{
+
+      clearCustomError(
+        "inflation"
+      );
+
+    }
+  }
+
+
+  return valid;
+}
+
+
+function getAnnualReturn(){
+
+  if(
+    el("rate").value ===
+    "custom"
+  ){
+
+    var custom =
+      readCustomPercent(
+        "customReturn"
+      );
+
+    return custom /
+      100;
+  }
+
+  return Number(
+    el("rate").value
+  );
+}
+
+
+function getInflationRate(){
+
+  if(
+    el("inflation").value ===
+    "custom"
+  ){
+
+    var custom =
+      readCustomPercent(
+        "customInflation"
+      );
+
+    return custom /
+      100;
+  }
+
+  return Number(
+    el("inflation").value
+  );
 }
 
 
@@ -1679,23 +1889,17 @@ function updateHelpers(){
 ========================================================= */
 
 function markAssumptionsDirty(){
-
   assumptionsDirty = true;
-
 }
 
 
 function markMonthlyManual(){
-
   monthlyManuallyEdited = true;
-
 }
 
 
 function markTreatmentDirty(){
-
   treatmentDirty = true;
-
 }
 
 
@@ -1713,14 +1917,10 @@ function getInputs(){
       ),
 
     rate:
-      Number(
-        el("rate").value
-      ),
+      getAnnualReturn(),
 
     inflation:
-      Number(
-        el("inflation").value
-      ),
+      getInflationRate(),
 
     years:
       Number(
@@ -1736,7 +1936,6 @@ function getInputs(){
       el("escalate").checked
 
   };
-
 }
 
 
@@ -1750,7 +1949,6 @@ function monthlyRate(annualRate){
     1 + annualRate,
     1 / 12
   ) - 1;
-
 }
 
 
@@ -1770,20 +1968,16 @@ function simulate(
   var balance =
     capital;
 
-
   var mr =
     monthlyRate(
       annualRate
     );
 
-
   var payment =
     startingMonthly;
 
-
   var total =
     0;
-
 
   var rows =
     [];
@@ -1797,7 +1991,6 @@ function simulate(
 
     var yearDistributions =
       0;
-
 
     var monthlyForYear =
       payment;
@@ -1814,9 +2007,7 @@ function simulate(
       ){
 
         balance = 0;
-
         break;
-
       }
 
 
@@ -1845,7 +2036,6 @@ function simulate(
 
       total +=
         actualPayment;
-
     }
 
 
@@ -1885,7 +2075,6 @@ function simulate(
 
       realMonthlyDistribution:
         realMonthly
-
     });
 
 
@@ -1897,7 +2086,6 @@ function simulate(
       payment =
         payment *
         (1 + inflation);
-
     }
 
 
@@ -1935,14 +2123,10 @@ function simulate(
             0
 
         });
-
       }
 
-
       break;
-
     }
-
   }
 
 
@@ -1967,9 +2151,7 @@ function simulate(
 
     rows:
       rows
-
   };
-
 }
 
 
@@ -1984,7 +2166,6 @@ function maximumDistribution(
 
   return capital *
     monthlyRate(rate);
-
 }
 
 
@@ -1995,19 +2176,8 @@ function balancedDistribution(
   return capital *
     0.024 /
     12;
-
 }
 
-
-/*
-  Preserve Real Capital
-
-  Target ending nominal capital equals the inflation-adjusted
-  future value of today's starting capital.
-
-  If distribution escalation is ON, the solver includes the
-  annual inflation increases in the distribution.
-*/
 
 function preserveRealCapitalDistribution(
   capital,
@@ -2036,25 +2206,17 @@ function preserveRealCapitalDistribution(
     );
 
 
-  /*
-    If even taking no distribution cannot achieve the required
-    real-capital target, there is no positive sustainable
-    distribution under these assumptions.
-  */
-
   if(
     zeroResult.balance <
     target
   ){
 
     return 0;
-
   }
 
 
   var low =
     0;
-
 
   var high =
     Math.max(
@@ -2097,16 +2259,13 @@ function preserveRealCapitalDistribution(
 
       high =
         mid;
-
     }
-
   }
 
 
   return (
     low + high
   ) / 2;
-
 }
 
 
@@ -2129,7 +2288,6 @@ function strategyDefaultDistribution(){
       v.capital,
       v.rate
     );
-
   }
 
 
@@ -2141,7 +2299,6 @@ function strategyDefaultDistribution(){
     return balancedDistribution(
       v.capital
     );
-
   }
 
 
@@ -2152,7 +2309,6 @@ function strategyDefaultDistribution(){
     v.years,
     v.escalate
   );
-
 }
 
 
@@ -2167,7 +2323,6 @@ function applyStrategyDefaultDistribution(){
 
 
   updateHelpers();
-
 }
 
 
@@ -2199,11 +2354,17 @@ function setStrategyHighlight(){
       "active",
       currentStrategy === "balanced"
     );
-
 }
 
 
 function selectStrategy(strategy){
+
+  if(
+    !validateCustomInputs()
+  ){
+    return;
+  }
+
 
   currentStrategy =
     strategy;
@@ -2211,11 +2372,6 @@ function selectStrategy(strategy){
 
   setStrategyHighlight();
 
-
-  /*
-    Each newly selected strategy starts with distribution
-    escalation OFF.
-  */
 
   el("escalate").checked =
     false;
@@ -2237,7 +2393,6 @@ function selectStrategy(strategy){
 
 
   calculateProjection();
-
 }
 
 
@@ -2247,9 +2402,12 @@ function selectStrategy(strategy){
 
 function recalculate(){
 
-  /*
-    Reformat capital before calculation.
-  */
+  if(
+    !validateCustomInputs()
+  ){
+    return;
+  }
+
 
   var capital =
     parseMoney(
@@ -2260,10 +2418,6 @@ function recalculate(){
   el("capital").value =
     inputMoney(capital);
 
-
-  /*
-    Reformat current monthly distribution.
-  */
 
   var monthly =
     parseMoney(
@@ -2276,18 +2430,11 @@ function recalculate(){
 
 
   /*
-    If capital / return / inflation / horizon or distribution
-    treatment changed, recompute the strategy default only when
-    the monthly distribution has NOT been manually overridden.
+    Custom return and inflation values are treated exactly like
+    preset values.
 
-    This means:
-
-    RM1m -> RM5m
-    + Recalculate
-    = new strategy distribution.
-
-    But if the user manually enters a monthly distribution,
-    Recalculate respects that manual amount.
+    The strategy default is recomputed only if assumptions changed
+    and the monthly distribution has not been manually overridden.
   */
 
   if(
@@ -2299,7 +2446,6 @@ function recalculate(){
   ){
 
     applyStrategyDefaultDistribution();
-
   }
 
 
@@ -2315,7 +2461,6 @@ function recalculate(){
 
   treatmentDirty =
     false;
-
 }
 
 
@@ -2437,7 +2582,6 @@ function calculateProjection(){
     v.capital,
     result.rows
   );
-
 }
 
 
@@ -2453,7 +2597,6 @@ function updateStatus(
 
   var box =
     el("statusBox");
-
 
   var text =
     el("statusText");
@@ -2481,7 +2624,6 @@ function updateStatus(
 
 
     return;
-
   }
 
 
@@ -2504,7 +2646,6 @@ function updateStatus(
 
 
     return;
-
   }
 
 
@@ -2527,7 +2668,6 @@ function updateStatus(
 
 
     return;
-
   }
 
 
@@ -2542,7 +2682,6 @@ function updateStatus(
 
   text.textContent =
     "The selected distribution level reduces the nominal capital balance and its inflation-adjusted purchasing power.";
-
 }
 
 
@@ -2554,7 +2693,6 @@ function renderTable(rows){
 
   var tbody =
     el("projectionTable");
-
 
   var html =
     "";
@@ -2596,14 +2734,12 @@ function renderTable(rows){
         "</td>" +
 
         "</tr>";
-
     }
   );
 
 
   tbody.innerHTML =
     html;
-
 }
 
 
@@ -2623,14 +2759,9 @@ function renderChart(
   var data =
     [
       {
-        year:
-          0,
-
-        nominal:
-          initialCapital,
-
-        real:
-          initialCapital
+        year:0,
+        nominal:initialCapital,
+        real:initialCapital
       }
     ];
 
@@ -2650,7 +2781,6 @@ function renderChart(
           row.realCapital
 
       });
-
     }
   );
 
@@ -2658,32 +2788,25 @@ function renderChart(
   var width =
     900;
 
-
   var height =
     320;
-
 
   var left =
     75;
 
-
   var right =
     20;
-
 
   var top =
     20;
 
-
   var bottom =
     48;
-
 
   var plotWidth =
     width -
     left -
     right;
-
 
   var plotHeight =
     height -
@@ -2707,7 +2830,6 @@ function renderChart(
           d.nominal,
           d.real
         );
-
     }
   );
 
@@ -2721,9 +2843,7 @@ function renderChart(
     if(
       data.length <= 1
     ){
-
       return left;
-
     }
 
 
@@ -2733,7 +2853,6 @@ function renderChart(
       (
         data.length - 1
       );
-
   }
 
 
@@ -2746,7 +2865,6 @@ function renderChart(
         value /
         maxValue
       );
-
   }
 
 
@@ -2771,11 +2889,9 @@ function renderChart(
             y(d[key])
               .toFixed(1)
           );
-
         }
       )
       .join(" ");
-
   }
 
 
@@ -2818,7 +2934,6 @@ function renderChart(
       gridY +
       '" stroke="#263241" stroke-width="1"/>' +
 
-
       '<text x="' +
       (
         left -
@@ -2836,7 +2951,6 @@ function renderChart(
       ) +
 
       "</text>";
-
   }
 
 
@@ -2861,7 +2975,6 @@ function renderChart(
       labelIndexes.push(
         a
       );
-
     }
 
   }else{
@@ -2897,7 +3010,6 @@ function renderChart(
         data.length -
         1
       ];
-
   }
 
 
@@ -2917,9 +3029,7 @@ function renderChart(
         unique.push(
           index
         );
-
       }
-
     }
   );
 
@@ -2946,7 +3056,6 @@ function renderChart(
         ) +
 
         "</text>";
-
     }
   );
 
@@ -2976,7 +3085,6 @@ function renderChart(
     labels +
 
     "</svg>";
-
 }
 
 
@@ -2999,17 +3107,14 @@ function shortRM(value){
     return "RM" +
       (
         millions >= 10
-          ? millions
-              .toFixed(0)
-          : millions
-              .toFixed(1)
+          ? millions.toFixed(0)
+          : millions.toFixed(1)
       )
       .replace(
         ".0",
         ""
       ) +
       "m";
-
   }
 
 
@@ -3024,7 +3129,6 @@ function shortRM(value){
         1000
       ) +
       "k";
-
   }
 
 
@@ -3032,7 +3136,6 @@ function shortRM(value){
     Math.round(
       value
     );
-
 }
 
 
@@ -3045,9 +3148,7 @@ function exportCSV(){
   if(
     !lastRows.length
   ){
-
     return;
-
   }
 
 
@@ -3090,9 +3191,7 @@ function exportCSV(){
           )
 
         ].join(",")
-
       );
-
     }
   );
 
@@ -3147,7 +3246,6 @@ function exportCSV(){
   URL.revokeObjectURL(
     url
   );
-
 }
 
 
@@ -3190,7 +3288,6 @@ function shareSimulator(){
 
 
     return;
-
   }
 
 
@@ -3208,7 +3305,6 @@ function shareSimulator(){
           alert(
             "Simulator link copied."
           );
-
         }
       )
       .catch(
@@ -3218,13 +3314,11 @@ function shareSimulator(){
             "Copy this simulator link:",
             canonicalURL
           );
-
         }
       );
 
 
     return;
-
   }
 
 
@@ -3232,7 +3326,6 @@ function shareSimulator(){
     "Copy this simulator link:",
     canonicalURL
   );
-
 }
 
 
@@ -3277,11 +3370,29 @@ function initializeSimulator(){
     "10";
 
 
-  /*
-    Distribution escalation is OFF by default.
+  el("customReturn").value =
+    "4.17";
 
-    Inflation still applies to all real purchasing-power
-    calculations regardless of the checkbox.
+
+  el("customInflation").value =
+    "3.00";
+
+
+  el("customReturnWrap")
+    .classList
+    .remove("show");
+
+
+  el("customInflationWrap")
+    .classList
+    .remove("show");
+
+
+  /*
+    Distribution escalation remains OFF by default.
+
+    Inflation still applies to real purchasing-power
+    calculations whether this checkbox is ON or OFF.
   */
 
   el("escalate").checked =
@@ -3292,7 +3403,6 @@ function initializeSimulator(){
 
 
   calculateProjection();
-
 }
 
 </script>
